@@ -11,16 +11,15 @@ const Body = () => {
   if (resData === null) {
     return <Shimmer />;
   }
-  const itemCard =
-    resData?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
+  const itemCard = resData?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.restaurants || resData?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
   
   console.log(itemCard, "item card")  
   return (
     <section>
       <Title/>
-      <div className="resContainer flex flex-wrap mx-16 gap-x-14">
+      <div className="resContainer flex flex-wrap mx-8 text-wrap">
         {itemCard?.map((restaurant) => (
-          <Link to={"/restaurant/"+restaurant?.info?.id} key={restaurant?.info?.id}>
+          <Link to={"/restaurant/"+restaurant?.info?.id} key={restaurant?.info?.id} className="w-1/4">
             <RestaurantCard {...restaurant.info} />
           </Link>
         ))}

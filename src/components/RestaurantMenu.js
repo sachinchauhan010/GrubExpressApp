@@ -6,17 +6,18 @@ const RestaurantMenu = () => {
   // const [restaurantInfo, setRestaurantInfo] = useState(null);
   const { resId } = useParams();
   const restaurantInfo = useRestaurantInfo(resId);
-  console.log(restaurantInfo)
 
   if (restaurantInfo === null) {
     return <Shimmer />;
   }
-  console.log(restaurantInfo);
-  const { name, cuisines, costForTwo, avgRating } =
-    restaurantInfo?.cards[0]?.card?.card?.info;
-  const  itemCards =
-    restaurantInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
-    console.log(itemCards);
+  const { name, cuisines, costForTwo, avgRating } = restaurantInfo?.cards[0]?.card?.card?.info;
+  const  itemCards = restaurantInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card?.itemCards;
+
+  console.log(itemCards);
+
+
+    const itemInfo = itemCards.map(item => item.card.info)
+    console.log(itemInfo,'###')
     
   return (
     <section>
@@ -27,18 +28,23 @@ const RestaurantMenu = () => {
         <h3>{avgRating} Star</h3>
       </div>
 
-      <div className="recommeneded">
-          {
-            itemCards.map((item)=>(
-              <>
-              <h4>Hi</h4>
-              <h4>{console.log(item)}</h4>
-              </>
-            )
-            )
-          }
+      <div className="flex flex-row flex-wrap p-3">
+        {
+          itemInfo.map((item) => (
+            <div key={item.id} className="flex flex-col space-y-2 w-1/4 p-3 min-h-52">
+              <img src={IMG_URL+item.imageId} className="max-h-44"/>
+              <h4 className="text-2xl">{item.name}</h4>
+              <h4>Category: {item.category}</h4>
+              <h4>Price: {item.defaultPrice/100}</h4>
+              <h4>Description: {item.description?.slice(0,80) + '...'}</h4>
+              <button className="p-2 bg-green-400">+ Cart</button>
+            </div>
+          ))
+        }
       </div>
     </section>
   );
 };
+
+
 export default RestaurantMenu;
