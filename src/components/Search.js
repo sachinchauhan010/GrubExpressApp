@@ -4,6 +4,7 @@ import Shimmer from "./Shimmer";
 import ItemData from "../utils/ItemsData";
 import { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
+import { Link } from "react-router-dom";
 const Search = () => {
   const [filteredList, setFilteredList] = useState(null);
   const [searchText, setSearchText] = useState(null);
@@ -67,9 +68,9 @@ const Search = () => {
               <Items {...item} />
             </div>
           ))}
-        </div> : <div className="resContainer flex flex-wrap mx-16 gap-x-14">
+        </div> : <div className="flex flex-wrap mx-8 text-wrap my-4">
           {filteredList?.map((restaurant) => (
-            <Link to={"/restaurant/"+restaurant?.info?.id} key={restaurant?.info?.id}>
+            <Link to={"/restaurant/"+restaurant?.info?.id} key={restaurant?.info?.id} className="w-1/4">
               <RestaurantCard {...restaurant.info} />
             </Link>
           ))}

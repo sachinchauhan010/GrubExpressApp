@@ -17,7 +17,7 @@ const Body = () => {
   return (
     <section>
       <Title/>
-      <div className="resContainer flex flex-wrap mx-8 text-wrap">
+      <div className="flex flex-wrap mx-8 text-wrap my-4">
         {itemCard?.map((restaurant) => (
           <Link to={"/restaurant/"+restaurant?.info?.id} key={restaurant?.info?.id} className="w-1/4">
             <RestaurantCard {...restaurant.info} />
