@@ -8,7 +8,11 @@ import {
   SearchLogo,
 } from "../images/SvgIcon";
 import Search from "./Search";
+import { useSelector } from "react-redux";
 const Header = () => {
+
+  // Subscribing the Store
+  const cartItems=useSelector((store)=>store.cart.items);
   return (
     <section className="shadow-xl rounded-b-xl">
       <div className="headerContainer flex justify-around items-center mx-10 my-4 ">
@@ -42,7 +46,7 @@ const Header = () => {
           </Link>
           <Link to="/cart">
             <div className="navItem flex gap-x-2 hover:text-orange-500">
-              {CartLogo}Cart
+              {CartLogo}Cart({cartItems.length} items)
             </div>
           </Link>
           <Link to="/login">

@@ -4,7 +4,7 @@ const RestaurantCategory = ({menu, index, setShowIndex, showItems}) => {
   const {title, itemCards } = menu;
   const flag = showItems;
   const handleShow=()=>{
-    setShowIndex(index);
+      setShowIndex(index);
   }
   return (
     <>

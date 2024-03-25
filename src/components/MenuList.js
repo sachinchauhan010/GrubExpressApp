@@ -1,7 +1,7 @@
-
+import { useDispatch } from "react-redux";
 import {IMG_URL} from "../utils/Constant"
-const MenuList = ({
-  
+import { addItem } from "../utils/CartSlice";
+const MenuList = ({ 
   name,
   category,
   defaultPrice,
@@ -9,9 +9,14 @@ const MenuList = ({
   imageId,
   price
 }) => {
+  const dispatch=useDispatch();
+
+  const handleCartItem=()=>{
+    // dispatch an action
+    dispatch(addItem("pizza"));
+  }
   return (
     <>
-      
       <div className="flex flex-row space-y-2 w-full min-h-52 justify-between px-4 my-4 border-orange-50">
         <div className="flex flex-col items-start">
           <h4 className="text-xl md:2xl font-bold ">{name}</h4>
@@ -30,8 +35,8 @@ const MenuList = ({
             src={IMG_URL + imageId}
             className="max-h-36 w-full rounded-t-md"
           />
-          <button className="text-md font-semibold text-gray-700 m-y-1 absolute bottom-16 left-0 bg-green-400 w-full text-center rounded-md hover:bg-orange-500">
-            Add to Cart
+          <button className="text-md font-semibold text-gray-700 m-y-1 absolute bottom-16 left-0 bg-green-400 w-full text-center rounded-md hover:bg-orange-500" onClick={handleCartItem}>
+            Add +
           </button>
         </div>
       </div>

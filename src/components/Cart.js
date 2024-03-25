@@ -1,17 +1,19 @@
+import { useDispatch } from "react-redux";
+import { clearCart, removeItem } from "../utils/CartSlice";
 const Cart = () => {
+  const dispatch=useDispatch();
+  const handleRemoveItem=()=>{
+    dispatch(removeItem());
+  }
+
+  const handleClearCart=()=>{
+    dispatch(clearCart());
+  }
+  
   return (
     <section>
-      <div>
-        <div>
-          <div className="View">
-            <div className="Top">
-              <h2>All Popular Dishes</h2>
-            </div>
-            <div className="Recent"></div>
-          </div>
-          <div className="cart"></div>
-        </div>
-      </div>
+      <button onClick={handleRemoveItem}>Remove</button>
+      <button onClick={handleClearCart}>Clear Cart</button>
     </section>
   );
 };

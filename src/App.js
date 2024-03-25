@@ -11,12 +11,16 @@ import { Outlet } from "react-router-dom";
 import Error from "./components/Error";
 import Contact from "./components/Contact";
 import RestaurantMenu from "./components/RestaurantMenu";
+import { Provider } from "react-redux";
+import AppStore from "./utils/AppStore";
 const AppLayout = () => {
   return (
-    <section>
-      <Header />
-      <Outlet />
-    </section>
+    <Provider store={AppStore}>
+      <section>
+        <Header />
+        <Outlet />
+      </section>
+    </Provider>
   );
 };
 
