@@ -16,7 +16,7 @@ const RestaurantCategory = ({menu, index, setShowIndex, showItems}) => {
           <span>🔽</span>
         </div>
         {flag && itemCards.map((item) => (
-          <MenuList key={title} {...item?.card?.info}/>
+          <MenuList key={title} items={item?.card?.info}/>
         ))}
       </div>
     </>

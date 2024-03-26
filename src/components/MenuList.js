@@ -1,20 +1,14 @@
 import { useDispatch } from "react-redux";
-import {IMG_URL} from "../utils/Constant"
+import { IMG_URL } from "../utils/Constant";
 import { addItem } from "../utils/CartSlice";
-const MenuList = ({ 
-  name,
-  category,
-  defaultPrice,
-  description,
-  imageId,
-  price
-}) => {
-  const dispatch=useDispatch();
+const MenuList = ({ items }) => {
+  const { name, category, defaultPrice, description, imageId, price } = items;
 
-  const handleCartItem=()=>{
-    // dispatch an action
-    dispatch(addItem("pizza"));
-  }
+  const dispatch = useDispatch();
+
+  const handleCartItem = (items) => {
+    dispatch(addItem(items));
+  };
   return (
     <>
       <div className="flex flex-row space-y-2 w-full min-h-52 justify-between px-4 my-4 border-orange-50">
@@ -24,7 +18,7 @@ const MenuList = ({
             Category: {category}
           </h4>
           <h4 className="text-md font-semibold text-blue-600 m-y-1">
-            Price: ₹{price? price/100 : defaultPrice / 100}
+            Price: ₹{price ? price / 100 : defaultPrice / 100}
           </h4>
           <h4 className="text-md font-semibold text-blue-600 m-y-1">
             Description: {description?.slice(0, 40) + "..."}
@@ -35,7 +29,10 @@ const MenuList = ({
             src={IMG_URL + imageId}
             className="max-h-36 w-full rounded-t-md"
           />
-          <button className="text-md font-semibold text-gray-700 m-y-1 absolute bottom-16 left-0 bg-green-400 w-full text-center rounded-md hover:bg-orange-500" onClick={handleCartItem}>
+          <button
+            className="text-md font-semibold text-gray-700 m-y-1 absolute bottom-16 left-0 bg-green-400 w-full text-center rounded-md hover:bg-orange-500"
+            onClick={() => handleCartItem(items)}
+          >
             Add +
           </button>
         </div>

@@ -1,19 +1,17 @@
-import { useDispatch } from "react-redux";
-import { clearCart, removeItem } from "../utils/CartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import MenuList from "./MenuList";
+import CartList from "./CartList";
+// import { clearCart, removeItem } from "../utils/CartSlice";
 const Cart = () => {
-  const dispatch=useDispatch();
-  const handleRemoveItem=()=>{
-    dispatch(removeItem());
-  }
-
-  const handleClearCart=()=>{
-    dispatch(clearCart());
-  }
+  const cartItem = useSelector((store) => store.cart.items);
+  console.log(cartItem);
   
   return (
     <section>
-      <button onClick={handleRemoveItem}>Remove</button>
-      <button onClick={handleClearCart}>Clear Cart</button>
+      <h2 className="text-2xl md:text-4xl font-bold text-blue-500 text-center pt-6">Cart</h2>
+      {cartItem.map((item) => (
+        <CartList items={item} />
+      ))}
     </section>
   );
 };
