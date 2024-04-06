@@ -1,11 +1,12 @@
 import contactImage from "../images/contact-us.png";
 import { mapLogo, ContactLogo, mailLogo } from "../images/SvgIcon";
+
 const Contact = () => {
   return (
     <section>
       <div>
-        <div className="topSection flex justify-around items-center px-16 bg-blue-100">
-          <div className="textSec">
+        <div className="topSection flex flex-col md:flex-row justify-around items-center px-6 md:px-16 bg-blue-100">
+          <div className="textSec text-center md:text-left">
             <h2 className="text-2xl md:text-6xl font-bold text-blue-700">
               Contact Us
             </h2>
@@ -19,8 +20,8 @@ const Contact = () => {
           </div>
         </div>
 
-        <div className="downSection mx-40 mt-10">
-          <div className="container text-xl md:text-4xl font-bold text-blue-700 mb-8">
+        <div className="downSection mx-6 md:mx-40 mt-10">
+          <div className="container text-xl md:text-4xl font-bold text-blue-700 mb-8 text-center md:text-left">
             <h1>Get In Touch</h1>
           </div>
           <div className="address my-6">
@@ -36,7 +37,7 @@ const Contact = () => {
             </p>
           </div>
           <div className="phone my-6">
-          <div className="flex justify-start items-center gap-4 my-2">
+            <div className="flex justify-start items-center gap-4 my-2">
               <div className="text-blue-700">{ContactLogo}</div>
               <h2 className="text-xl md:text-2xl font-semibold text-fuchsia-500">
                 Phone
@@ -47,7 +48,7 @@ const Contact = () => {
             </p>
           </div>
           <div className="TelePhone my-6">
-          <div className="flex justify-start items-center gap-4 my-2">
+            <div className="flex justify-start items-center gap-4 my-2">
               <div className="text-blue-700">{ContactLogo}</div>
               <h2 className="text-xl md:text-2xl font-semibold text-fuchsia-500">
                 Tele-Phone
@@ -58,7 +59,7 @@ const Contact = () => {
             </p>
           </div>
           <div className="Email my-6">
-          <div className="flex justify-start items-center gap-4 my-2">
+            <div className="flex justify-start items-center gap-4 my-2">
               <div className="text-blue-700">{mailLogo}</div>
               <h2 className="text-xl md:text-3xl font-semibold text-fuchsia-500">
                 Email
@@ -73,4 +74,5 @@ const Contact = () => {
     </section>
   );
 };
+
 export default Contact;

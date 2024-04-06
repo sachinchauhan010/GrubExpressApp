@@ -9,7 +9,7 @@ const RestaurantMenu = () => {
   const [showIndex, setShowIndex] = useState(-1);
   const { resId } = useParams();
   const restaurantInfo = useRestaurantInfo(resId);
-
+  console.log(restaurantInfo, "Res Info");
   if (restaurantInfo === null) {
     return <Shimmer />;
   }
@@ -22,19 +22,22 @@ const RestaurantMenu = () => {
     city,
     locality,
     message,
-  } = restaurantInfo?.cards[0]?.card?.card?.info;
+  } = restaurantInfo?.cards[0]?.card?.card?.info || restaurantInfo?.cards[2]?.card?.card?.info;
   const itemCards =
     restaurantInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card
+      ?.card?.itemCards ||  restaurantInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card
       ?.card?.itemCards;
   const categoryData =
     restaurantInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
       (c) =>
         c?.card?.card?.["@type"] ===
         "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+    ) || restaurantInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
+      (c) =>
+        c?.card?.card?.["@type"] ===
+        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
     );
-
-  const itemInfo = itemCards.map((item) => item.card.info);
-  console.log(itemInfo, "###");
+  const itemInfo = itemCards.map((item) => item?.card?.info);
 
   return (
     <section className="bg-blue-50">

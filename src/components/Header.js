@@ -1,55 +1,53 @@
 import logo from "../images/Flogo.png";
 import { Link } from "react-router-dom";
-import {
-  UserLogo,
-  ContactLogo,
-  HomeLogo,
-  CartLogo,
-  SearchLogo,
-} from "../images/SvgIcon";
+import { UserLogo, ContactLogo, HomeLogo, CartLogo, SearchLogo } from "../images/SvgIcon";
 import Search from "./Search";
 import { useSelector } from "react-redux";
-const Header = () => {
+import { useState } from "react"; // Import useState hook for managing responsive menu state
 
+const Header = () => {
   // Subscribing the Store
-  const cartItems=useSelector((store)=>store.cart.items);
+  const cartItems = useSelector((store) => store.cart.items);
+
+  // State for responsive menu
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <section className="shadow-xl rounded-b-xl">
-      <div className="headerContainer flex justify-around items-center mx-10 my-4 ">
+      <div className="headerContainer flex justify-between items-center mx-10 my-4 ">
         <div className="logoContainer">
           <div className="logo">
             <img src={logo} alt="" className="h-[70px] -mt-4" />
           </div>
         </div>
-        <div className="navLinksContainer flex justify-around space-x-16 text-lg font-semibold text-fuchsia-600 cursor-pointer">
-          <Link to="/">
+        {/* Responsive Menu Icon */}
+        <div className="menuIcon cursor-pointer md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          <svg className="w-6 h-6" viewBox="0 0 24 24" stroke="currentColor" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
+        </div>
+        <div className={`navLinksContainer ${isMenuOpen ? 'block' : 'hidden'} md:flex justify-between space-x-16 text-lg font-semibold text-fuchsia-600`}>
+          <Link to="/" onClick={() => setIsMenuOpen(false)}>
             <div className="navItem flex gap-x-2 hover:text-orange-500">
               {HomeLogo}Home
             </div>
           </Link>
-          <Link to="/search">
-            <div
-              className="navItem flex gap-x-2 hover:text-orange-500"
-              onClick={() => {
-                console.log("Search Clicked");
-                return <Search />;
-              }}
-            >
+          <Link to="/search" onClick={() => setIsMenuOpen(false)}>
+            <div className="navItem flex gap-x-2 hover:text-orange-500">
               {SearchLogo}Search
             </div>
           </Link>
-
-          <Link to="/contact">
+          <Link to="/contact" onClick={() => setIsMenuOpen(false)}>
             <div className="navItem flex gap-x-2 hover:text-orange-500">
               {ContactLogo}Contact
             </div>
           </Link>
-          <Link to="/cart">
-            <div className="navItem flex gap-x-2 hover:text-orange-500">
-              {CartLogo}Cart({cartItems.length} items)
+          <Link to="/cart" onClick={() => setIsMenuOpen(false)}>
+            <div className="navItem flex gap-x-2 hover:text-orange-500 relative">
+              {CartLogo}Cart<span className="absolute bottom-4 left-2">{cartItems.length}</span>
             </div>
           </Link>
-          <Link to="/login">
+          <Link to="/login" onClick={() => setIsMenuOpen(false)}>
             <div className="navItem flex gap-x-2 hover:text-orange-500">
               {UserLogo}LogIn
             </div>
@@ -59,4 +57,5 @@ const Header = () => {
     </section>
   );
 };
+
 export default Header;

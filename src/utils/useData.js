@@ -9,6 +9,7 @@ const useData = () => {
     const tempData = await fetch(API_URL);
     const jsonData = await tempData.json();
     setApiData(jsonData?.data);
+    console.log("Hello");
   };
   
   return apiData;

@@ -4,7 +4,12 @@ module.exports = {
     "./src/**/*.{html,js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        'xs': '400px', // Custom breakpoint for extra small screens
+        // You can define additional breakpoints as needed
+      },
+    },
   },
   plugins: [],
 }

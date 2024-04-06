@@ -15,7 +15,7 @@ const RestaurantCard = ({
   }
 
   return (
-    <div className="h-[380px] p-1 m-2 rounded-md space-x-2 shadow-xl bg-gray-100">
+    <div className="md:h-[380px] md:w-[90%] sm:h-[380px] sm:w-[100%] w-full overflow-hidden p-4 m-6 my-3 rounded-md space-x-2 shadow-xl bg-gray-100">
       <div className="space-y-4">
         <div className="space-y-2">
           <img
@@ -30,7 +30,7 @@ const RestaurantCard = ({
             <h4>⭐{avgRating} Star</h4>
             <h4 className="">{sla.slaString}</h4>
           </div>
-          <h4 className="font-medium">{cuisines.join(",")}</h4>
+          <h4 className="font-medium overflow-hidden">{cuisines.join(",")}</h4>
           <h4 className="font-medium">{locality}</h4>
         </div>
       </div>

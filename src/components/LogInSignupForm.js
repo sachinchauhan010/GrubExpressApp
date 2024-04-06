@@ -34,15 +34,12 @@ const LoginSignupForm = () => {
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-bold text-blue-700">
-            {isLogin ? "LogIn" : "SignUp"}
+            {isLogin ? "Log In" : "Sign Up"}
           </h2>
         </div>
-        <form
-          className="mt-2 space-y-6"
-          onSubmit={isLogin ? handleLoginSubmit : handleSignupSubmit}
-        >
+        <form className="mt-2 space-y-6" onSubmit={isLogin ? handleLoginSubmit : handleSignupSubmit}>
           <input type="hidden" name="remember" defaultValue="true" />
-          <div className="rounded-md shadow-sm -space-y-px flex flex-col items-center ">
+          <div className="rounded-md shadow-sm -space-y-px flex flex-col items-center">
             <div>
               <label htmlFor="phone-number" className="sr-only">
                 Phone Number
@@ -79,43 +76,37 @@ const LoginSignupForm = () => {
             )}
           </div>
 
-          <div className="ml-20">
+          <div className="flex flex-col items-center space-y-4 md:space-y-0 md:flex-row md:justify-between md:ml-20">
             {isLogin && !isOtpSent ? (
               <button
                 type="button"
                 onClick={handleSendOtp}
-                className="group relative w-full md:w-72 flex justify-center py-2 px-4 border border-transparent text-md font-medium rounded-md text-white bg-fuchsia-500 hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="w-full md:w-auto flex justify-center py-2 px-4 border border-transparent text-md font-medium rounded-md text-white bg-fuchsia-500 hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 Send OTP
               </button>
             ) : (
               <button
                 type="submit"
-                className="group relative w-full md:w-72 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="w-full md:w-auto flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 {isLogin ? "Login" : "Signup"}
               </button>
             )}
-          </div>
-         <div>
-          
-         </div>
-          
 
-          <div className="flex items-center justify-center mt-4">
-            <span className="mr-2">
-              {isLogin ? "Don't have an account?" : "Already have an account?"}
-            </span>
-            <button
-              type="button"
-              onClick={() => setIsLogin(!isLogin)}
-              className="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none"
-            >
-              {isLogin ? "Sign up" : "Login"}
-            </button>
+            <div className="flex items-center">
+              <span className="mr-2">
+                {isLogin ? "Don't have an account?" : "Already have an account?"}
+              </span>
+              <button
+                type="button"
+                onClick={() => setIsLogin(!isLogin)}
+                className="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none"
+              >
+                {isLogin ? "Sign up" : "Login"}
+              </button>
+            </div>
           </div>
-
-         
         </form>
       </div>
     </div>
