@@ -14,6 +14,12 @@ const MenuList = ({ items }) => {
     <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 w-full border-b-2 border-gray-200 py-4 px-4 md:min-h-52">
       <div className="relative w-full md:w-1/4">
         <img src={IMG_URL + imageId} className="w-full rounded-md" alt={name} />
+        <button
+          className="text-md font-semibold text-gray-700 mt-2 md:mt-0 bg-green-400 py-1 px-4 rounded-md hover:bg-orange-500 absolute bottom-10 left-16"
+          onClick={() => handleCartItem(items)}
+        >
+          Add +
+        </button>
       </div>
       <div className="flex flex-col items-start justify-between">
         <div>
@@ -28,12 +34,7 @@ const MenuList = ({ items }) => {
             Description: {description?.slice(0, 40) + "..."}
           </h4>
         </div>
-        <button
-          className="text-md font-semibold text-gray-700 mt-2 md:mt-0 bg-green-400 py-2 px-4 rounded-md hover:bg-orange-500"
-          onClick={() => handleCartItem(items)}
-        >
-          Add +
-        </button>
+        
       </div>
       
     </div>
