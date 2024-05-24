@@ -46,7 +46,7 @@ Follow these steps to set up the project locally:
     npm start
     ```
 
-The application should now be running at `http://localhost:3000`.
+The application should now be running at `http://localhost:1234` beacuse parcel is used for bundelling.
 
 ## Usage
 
