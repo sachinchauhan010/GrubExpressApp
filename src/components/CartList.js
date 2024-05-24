@@ -3,30 +3,31 @@ import { useState } from "react";
 import { removeItem } from "../utils/CartSlice";
 import { useDispatch } from "react-redux";
 
-const CartList = ({ items }) => {
-  let total = 0;
-
-  const { name, category, defaultPrice, description, imageId, price } = items;
+const CartList = ({ item, updateTotalCost }) => {
+  const { name, category, description, imageId, price } = item;
   const [counter, setCounter] = useState(1);
   const [cost, setCost] = useState(price);
 
+  const dispatch = useDispatch();
+
   const handleDecrement = () => {
-    setCounter(counter - 1);
-    setCost(cost - price);
+    if (counter > 1) {
+      setCounter(counter - 1);
+      setCost((prevCost) => prevCost - price);
+      updateTotalCost(-price);
+    }
   };
 
   const handleIncrement = () => {
     setCounter(counter + 1);
-    setCost(cost + price);
+    setCost((prevCost) => prevCost + price);
+    updateTotalCost(price);
   };
-
-  const dispatch = useDispatch();
 
   const handleRemove = () => {
-    dispatch(removeItem(items));
+    dispatch(removeItem(item));
+    updateTotalCost(-cost);
   };
-
-  total = total + cost;
 
   return (
     <section className="mx-4 md:mx-20">
@@ -35,7 +36,7 @@ const CartList = ({ items }) => {
           <img src={IMG_URL + imageId} className="h-36 w-full rounded-t-md" alt={name} />
         </div>
         <div className="flex flex-col items-start text-start px-4">
-          <h4 className="text-xl md:text-2xl font-bold ">{name}</h4>
+          <h4 className="text-xl md:text-2xl font-bold">{name}</h4>
           <h4 className="text-md font-semibold text-blue-600 my-1 md:m-1">
             Category: {category}
           </h4>

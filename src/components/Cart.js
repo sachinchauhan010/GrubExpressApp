@@ -1,14 +1,25 @@
 import { useDispatch, useSelector } from "react-redux";
 import CartList from "./CartList";
 import { clearCart } from "../utils/CartSlice";
+import { useState, useEffect } from "react";
 
 const Cart = () => {
-  const cartItem = useSelector((store) => store.cart.items);
-  let totalCost = 0;
+  const cartItems = useSelector((store) => store.cart.items);
   const dispatch = useDispatch();
+  const [totalCost, setTotalCost] = useState(0);
+
+  useEffect(() => {
+    // Calculate the total cost whenever cartItems change
+    const newTotalCost = cartItems.reduce((total, item) => total + item.price, 0);
+    setTotalCost(newTotalCost);
+  }, [cartItems]);
 
   const handleClearCart = () => {
     dispatch(clearCart());
+  };
+
+  const updateTotalCost = (priceChange) => {
+    setTotalCost((prevTotal) => prevTotal + priceChange);
   };
 
   return (
@@ -22,15 +33,11 @@ const Cart = () => {
       >
         Clear Cart
       </button>
-      {cartItem.map((item) => (
-        <CartList key={item.id} items={item} />
+      {cartItems.map((item) => (
+        <CartList key={item.id} item={item} updateTotalCost={updateTotalCost} />
       ))}
-
-      {cartItem.map((item) => {
-        totalCost = totalCost + parseInt(item?.price / 100);
-      })}
       <p className="totalPrice md:text-xl text-lg font-bold text-center text-orange-400 mb-10">
-        Total Price: {totalCost}
+        Total Price: ₹{totalCost / 100}
       </p>
     </section>
   );
