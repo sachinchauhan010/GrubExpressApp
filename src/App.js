@@ -5,7 +5,7 @@ import Body from "./components/Body";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Search from "./components/Search";
 import { Contact } from "./images/SvgIcon";
-import LoginSignupForm from "./components/LogInSignupForm";
+import Login from "./components/Login";
 import Cart from "./components/Cart";
 import { Outlet } from "react-router-dom";
 import Error from "./components/Error";
@@ -14,10 +14,14 @@ import RestaurantMenu from "./components/RestaurantMenu";
 import { Provider } from "react-redux";
 import AppStore from "./utils/AppStore";
 import Cart from "./components/Cart";
+import SignUp from "./components/Signup";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const AppLayout = () => {
   return (
     <Provider store={AppStore}>
       <section>
+        <ToastContainer />
         <Header />
         <Outlet />
       </section>
@@ -48,7 +52,11 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/login",
-        element: <LoginSignupForm />,
+        element: <Login />,
+      },
+      {
+        path: "/signup",
+        element: <SignUp />,
       },
       {
         path: "/restaurant/:resId",
