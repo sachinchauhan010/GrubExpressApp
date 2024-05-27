@@ -27,7 +27,6 @@ export default function SignUp() {
 
   function handleChange(e) {
     const { name, value } = e.target;
-
     setUserData({
       ...userData,
       [name]: value,
