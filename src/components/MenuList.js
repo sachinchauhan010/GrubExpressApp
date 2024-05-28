@@ -8,6 +8,7 @@ const MenuList = ({ items }) => {
   const navigate = useNavigate();
   const { name, category, defaultPrice, description, imageId, price } = items;
   const dispatch = useDispatch();
+  
 
   const handleCartItem = async (items) => {
     const response = await fetch('http://localhost:3000/api/user/auth', {
@@ -18,11 +19,24 @@ const MenuList = ({ items }) => {
       body: JSON.stringify(),
       credentials: 'include',
     });
-
+    
     const apiRespose = await response.json();
-    if (apiRespose.login) {
+    if (apiRespose.success) {
       dispatch(addItem(items));
-      toast.success('Item added to cart');
+      const response = await fetch('http://localhost:3000/api/user/add-to-cart', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({itemId: items.id}),
+      credentials: 'include',
+    });
+    const apiRespose = await response.json();
+    console.log(apiRespose, "************")
+    if(apiRespose.success){
+      toast.success(apiRespose.message);
+    }
+
     } else {
       toast.error('You are not logged in');
       navigate('/login');

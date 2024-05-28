@@ -4,15 +4,36 @@ import { clearCart } from "../utils/CartSlice";
 import { useState, useEffect } from "react";
 
 const Cart = () => {
+
   const cartItems = useSelector((store) => store.cart.items);
   const dispatch = useDispatch();
   const [totalCost, setTotalCost] = useState(0);
+  const [fetchCartItemIds, setFetchCartItemIds]=useState([])
 
   useEffect(() => {
     // Calculate the total cost whenever cartItems change
     const newTotalCost = cartItems.reduce((total, item) => total + item.price, 0);
     setTotalCost(newTotalCost);
   }, [cartItems]);
+
+  useEffect(()=>{
+    const fetchItem=async ()=>{
+      const response = await fetch('http://localhost:3000/api/user/get-user-cart', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(),
+        credentials: 'include',
+      });
+      
+      const apiRespose = await response.json();
+      const cartId=apiRespose.userCart || [];
+
+      setFetchCartItemIds(cartId);
+    };
+    fetchItem();
+  },[])
 
   const handleClearCart = () => {
     dispatch(clearCart());
