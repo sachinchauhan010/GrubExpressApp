@@ -13,12 +13,12 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { toast } from 'react-toastify';
-import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
+
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const id=Cookies.get('_id');
-  console.log(id,"id")
+  const navigate=useNavigate();
   const [userLoginData, setUserLoginData]=React.useState({
     email:'',
     password:'',
@@ -41,14 +41,17 @@ export default function SignIn() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(userLoginData),
+        credentials: 'include',
       });
       const apiresponse = await response.json();
 
       if (!response.ok) {
-        toast.error(apiresponse.message)
+        toast.error(apiresponse.message);
         throw new Error('Network response was not ok');
+
       }
       toast.success(apiresponse.message);
+      navigate('/cart');
 
     } catch (error) {
       console.log(error.message);

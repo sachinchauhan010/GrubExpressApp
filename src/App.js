@@ -21,9 +21,9 @@ const AppLayout = () => {
   return (
     <Provider store={AppStore}>
       <section>
-        <ToastContainer />
-        <Header />
-        <Outlet />
+          <ToastContainer />
+          <Header />
+          <Outlet />
       </section>
     </Provider>
   );
