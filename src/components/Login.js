@@ -14,10 +14,14 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { userLogout } from '../utils/userLogSlice';
+
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+  const dispatch= useDispatch();
   const navigate=useNavigate();
   const [userLoginData, setUserLoginData]=React.useState({
     email:'',
@@ -51,6 +55,7 @@ export default function SignIn() {
 
       }
       toast.success(apiresponse.message);
+      dispatch(userLogout('logout'));
       navigate('/cart');
 
     } catch (error) {
