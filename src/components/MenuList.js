@@ -1,13 +1,32 @@
 import { useDispatch } from "react-redux";
 import { IMG_URL } from "../utils/Constant";
 import { addItem } from "../utils/CartSlice";
-
+import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify'
+import Cookies from 'js-cookie';
 const MenuList = ({ items }) => {
+  const navigate = useNavigate();
   const { name, category, defaultPrice, description, imageId, price } = items;
   const dispatch = useDispatch();
 
-  const handleCartItem = (items) => {
-    dispatch(addItem(items));
+  const handleCartItem = async (items) => {
+    const response = await fetch('http://localhost:3000/api/user/auth', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(),
+      credentials: 'include',
+    });
+
+    const apiRespose = await response.json();
+    if (apiRespose.login) {
+      dispatch(addItem(items));
+      toast.success('Item added to cart');
+    } else {
+      toast.error('You are not logged in');
+      navigate('/login');
+    }
   };
 
   return (
@@ -34,9 +53,9 @@ const MenuList = ({ items }) => {
             Description: {description?.slice(0, 40) + "..."}
           </h4>
         </div>
-        
+
       </div>
-      
+
     </div>
   );
 };

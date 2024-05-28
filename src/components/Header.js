@@ -3,15 +3,37 @@ import { Link } from "react-router-dom";
 import { UserLogo, ContactLogo, HomeLogo, CartLogo, SearchLogo } from "../images/SvgIcon";
 import Search from "./Search";
 import { useSelector } from "react-redux";
-import { useState } from "react"; // Import useState hook for managing responsive menu state
+import { useEffect, useState } from "react"; 
 
-const Header = () => {
+const Header =() => {
   // Subscribing the Store
   const cartItems = useSelector((store) => store.cart.items);
-
-  // State for responsive menu
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [userLogin, setUserLogin]=useState('login');
 
+  useEffect(()=>{
+    const fetchAuthStatus=async()=>{
+      try {
+        const response = await fetch('http://localhost:3000/api/user/auth', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(),
+          credentials: 'include',
+        });
+        const apiRespose = await response.json();
+        if(apiRespose.login){
+          setUserLogin('logout')
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+    fetchAuthStatus();
+  },[])
+ 
+ 
   return (
     <section className="shadow-xl rounded-b-xl">
       <div className="headerContainer flex justify-between items-center mx-10 my-4 ">
@@ -49,7 +71,7 @@ const Header = () => {
           </Link>
           <Link to="/login" onClick={() => setIsMenuOpen(false)}>
             <div className="navItem flex gap-x-2 hover:text-orange-500">
-              {UserLogo}LogIn
+              {UserLogo}{userLogin}
             </div>
           </Link>
         </div>
