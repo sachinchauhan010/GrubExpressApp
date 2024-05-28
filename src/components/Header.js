@@ -3,16 +3,18 @@ import { Link } from "react-router-dom";
 import { UserLogo, ContactLogo, HomeLogo, CartLogo, SearchLogo } from "../images/SvgIcon";
 import Search from "./Search";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react"; 
-
-const Header =() => {
+import { useEffect, useState } from "react";
+import { toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
+const Header = () => {
+  const navigate = useNavigate();
   // Subscribing the Store
   const cartItems = useSelector((store) => store.cart.items);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [userLogin, setUserLogin]=useState('login');
+  const [userLogin, setUserLogin] = useState('login');
 
-  useEffect(()=>{
-    const fetchAuthStatus=async()=>{
+  const handleLogAndMenu = async () => {
+    setIsMenuOpen(false);
       try {
         const response = await fetch('http://localhost:3000/api/user/auth', {
           method: 'POST',
@@ -23,17 +25,39 @@ const Header =() => {
           credentials: 'include',
         });
         const apiRespose = await response.json();
-        if(apiRespose.login){
+        if (apiRespose.success) {
           setUserLogin('logout')
+          try {
+            const response = await fetch('http://localhost:3000/api/user/logout', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(),
+              credentials: 'include',
+            });
+            const apiRespose = await response.json();
+            console.log(apiRespose, "&&&&&&&&&&")
+            if (apiRespose.success) {
+              toast.success(apiRespose.message);
+              setUserLogin('login')
+              navigate('/');
+            } else {
+              toast.error(apiRespose.message);
+            }
+
+          } catch (error) {
+            console.log("Error in logout", error.message);
+          }
+        } else {
+          setUserLogin('Logout');
+          navigate('/login');
         }
       } catch (error) {
         console.log(error.message);
       }
-    }
-    fetchAuthStatus();
-  },[])
- 
- 
+  }
+
   return (
     <section className="shadow-xl rounded-b-xl">
       <div className="headerContainer flex justify-between items-center mx-10 my-4 ">
@@ -69,7 +93,7 @@ const Header =() => {
               {CartLogo}Cart<span className="absolute bottom-4 left-2">{cartItems.length}</span>
             </div>
           </Link>
-          <Link to="/login" onClick={() => setIsMenuOpen(false)}>
+          <Link to="/login" onClick={handleLogAndMenu}>
             <div className="navItem flex gap-x-2 hover:text-orange-500">
               {UserLogo}{userLogin}
             </div>
