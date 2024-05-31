@@ -3,82 +3,78 @@ import { useParams } from "react-router-dom";
 import useRestaurantInfo from "../utils/useRestaurantInfo";
 import { IMG_URL } from "../utils/Constant";
 import RestaurantCategory from "./RestaurantCategory";
-// import RestaurantCategory from "./RestaurantCategory";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 const RestaurantMenu = () => {
   const [showIndex, setShowIndex] = useState(-1);
   const { resId } = useParams();
-  const restaurantInfo = useRestaurantInfo(resId);
-  console.log(restaurantInfo, "Res Info");
-  if (restaurantInfo === null) {
+  // const restaurantInfo = useRestaurantInfo(resId);
+  const [restaurantDishes, setRestaurantDishes] = useState([]);
+
+  useEffect(() => {
+    const fetchRestaurantDishes = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/api/distributor/get-restaurant-dish', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ resid: resId }), 
+          credentials: 'include',
+        });
+        const data = await response.json();
+        setRestaurantDishes(data.data.rescuisine);
+        console.log(data.data);
+      } catch (error) {
+        console.error("Error fetching restaurant dishes:", error);
+      }
+    };
+    console.log(restaurantDishes, "*****");
+    fetchRestaurantDishes();
+  }, [resId]); // Fetch dishes whenever the restaurant ID changes
+
+  if (restaurantDishes === null) {
     return <Shimmer />;
   }
-  const {
-    name,
-    cuisines,
-    costForTwo,
-    avgRating,
-    cloudinaryImageId,
-    city,
-    locality,
-    message,
-  } = restaurantInfo?.cards[0]?.card?.card?.info || restaurantInfo?.cards[2]?.card?.card?.info;
-  const itemCards =
-    restaurantInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card
-      ?.card?.itemCards ||  restaurantInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card
-      ?.card?.itemCards;
-  const categoryData =
-    restaurantInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
-      (c) =>
-        c?.card?.card?.["@type"] ===
-        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
-    ) || restaurantInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
-      (c) =>
-        c?.card?.card?.["@type"] ===
-        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
-    );
-  const itemInfo = itemCards.map((item) => item?.card?.info);
 
   return (
     <section className="bg-blue-50">
-      <div className="flex justify-around mb-10 border-b-orange-300 border-b-2 py-10">
-        <div>
-          <p className="text-xl font-bold md:text-2xl text-blue-700 ">{name}</p>
-          <p className="text-md md:text-lg font-semibold text-fuchsia-700">
-            {cuisines.join(", ")}
-          </p>
-          <p className="text-md font-semibold text-fuchsia-700 m-y-1">
-            {city},{locality}
-          </p>
-          <p className="text-md font-semibold text-fuchsia-700 m-y-1">
-            {message}
-          </p>
-          <p className="text-md font-semibold text-fuchsia-700 m-y-1">
-            ₹ {costForTwo / 100} FOR TWO
-          </p>
+      {restaurantDishes.map((dish) => (
+        <div className="flex justify-around mb-10 border-b-2 py-10">
+          <div>
+            <p className="text-xl font-bold md:text-2xl text-blue-700 ">{dish.itemid.itemname}</p>
+            
+            <p className="text-md font-semibold text-fuchsia-700 m-y-1">
+              {dish.itemid.itemdescription}
+            </p>
+            <p className="text-md font-semibold text-fuchsia-700 m-y-1">
+              {dish.itemid.itemprice}
+            </p>
+            <p className="text-md font-semibold text-fuchsia-700 m-y-1">
+              In Stock: {dish.itemid.iteminstock}
+            </p>
+          </div>
+          <div className="relative w-1/5">
+            <img
+              src={dish.itemid.itemphoto}
+              alt="dish Image"
+              className="max-h-36 w-full rounded-lg"
+            />
+          </div>
         </div>
-        <div className="relative w-1/5">
-          <img
-            src={IMG_URL + cloudinaryImageId}
-            alt=""
-            className="max-h-36 w-full rounded-lg"
-          />
-          <p className="text-md font-semibold text-gray-700 m-y-1 absolute bottom-2 left-0 bg-green-400 w-full text-center rounded-md">
-            {avgRating} Star
-          </p>
-        </div>
-      </div>
+      ))}
 
-      <div className="flex flex-col flex-wrap p-3">
-        {categoryData.map((resCategory, index) => (
-          <RestaurantCategory
-            menu={resCategory?.card?.card}
-            showItems={index === showIndex ? true : false}
-            setShowIndex={setShowIndex}
-            index={index}
-          />
+
+      {/* <div className="flex flex-col flex-wrap p-3">
+        {restaurantDishes.map((dish, index) => (
+          <div key={index} className="mb-4">
+            <p className="text-lg font-bold">{dish.itemname}</p>
+            <p className="text-md text-gray-700">{dish.itemdescription}</p>
+            <p className="text-md font-semibold text-fuchsia-700">₹ {dish.itemprice}</p>
+            <p className="text-md font-semibold text-fuchsia-700">In Stock: {dish.iteminstock}</p>
+          </div>
         ))}
-      </div>
+      </div> */}
     </section>
   );
 };

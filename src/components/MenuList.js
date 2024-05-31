@@ -32,7 +32,6 @@ const MenuList = ({ items }) => {
       credentials: 'include',
     });
     const apiRespose = await response.json();
-    console.log(apiRespose, "************")
     if(apiRespose.success){
       toast.success(apiRespose.message);
     }
