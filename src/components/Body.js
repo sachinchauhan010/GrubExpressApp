@@ -34,6 +34,25 @@ const Body = () => {
 
   return (
     <section>
+      <div className="section flex flex-col md:flex-row justify-around items-center h-[100vh] mx-10">
+      <div className="my-5">
+        <h1 className="text-4xl font-bold mb-5">
+          It's Not Just Food, <br />
+          It's an <span>Experience</span>
+        </h1>
+
+        <p className="text-lg font-normal mb-5 lg:w-[70%]">
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsa,
+          provident dolorum. Voluptatum ducimus minima quasi unde, voluptatibus
+          soluta eligendi. Enim, architecto autem.
+        </p>
+
+        <a href="#menu" className="btn">Explore Menu</a>
+      </div>
+      <div className="" >
+        <img src="../images/chef.jpeg" alt="" className="sm:w-[300px] md:w-[400px] lg:w-[600px]" />
+      </div>
+    </div>
       <Title />
       <div className="flex flex-wrap justify-center md:mx-8 mx-2 text-wrap my-4 sm:flex-row flex-col">
         {restaurants?.map((restaurant) => (
