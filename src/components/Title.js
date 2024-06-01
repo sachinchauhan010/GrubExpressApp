@@ -8,7 +8,7 @@ const Title = () => {
   const { title } = resData?.cards[2]?.card?.card;
   return (
     <section>
-      <div className="title text-xl font-bold md:text-2xl md:mx-16 mx-3 text-center mt-10 text-blue-500">{title}</div>
+      <div className="title text-xl font-bold md:text-3xl md:mx-16 mx-3 text-center mt-10 text-blue-800">{title}</div>
     </section>
   );
 };

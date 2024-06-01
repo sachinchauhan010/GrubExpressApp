@@ -33,15 +33,15 @@ const Body = () => {
   }
 
   return (
-    <section>
-      <div className="section flex flex-col md:flex-row justify-around items-center h-[100vh] mx-10">
-      <div className="my-5">
-        <h1 className="text-4xl font-bold mb-5">
+    <section className="bg-blue-50 text-blue-900">
+      <div className="section flex flex-col md:flex-row justify-around items-center h-[80vh] px-10">
+      <div className="">
+        <h1 className="text-5xl font-bold mb-5">
           It's Not Just Food, <br />
           It's an <span>Experience</span>
         </h1>
 
-        <p className="text-lg font-normal mb-5 lg:w-[70%]">
+        <p className="text-lg font-normal mb-5 pr-20 text-blue-900">
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsa,
           provident dolorum. Voluptatum ducimus minima quasi unde, voluptatibus
           soluta eligendi. Enim, architecto autem.
@@ -50,13 +50,13 @@ const Body = () => {
         <a href="#menu" className="btn">Explore Menu</a>
       </div>
       <div className="" >
-        <img src="../images/chef.jpeg" alt="" className="sm:w-[300px] md:w-[400px] lg:w-[600px]" />
+        <img src="https://raw.githubusercontent.com/sachinchauhan010/GrubExpressApp/devlop/src/images/chef.jpeg" alt="" className="" />
       </div>
     </div>
       <Title />
       <div className="flex flex-wrap justify-center md:mx-8 mx-2 text-wrap my-4 sm:flex-row flex-col">
         {restaurants?.map((restaurant) => (
-          <Link to={`/restaurant/${restaurant?.resid}`} key={restaurant?.resid} className="lg:w-1/4 md:w-1/3 sm:w-1/2 xs:w-2/3 xs:m-auto w-[100%] flex flex-wrap flex-row box-border">
+          <Link to={`/restaurant/${restaurant?.resid}`} key={restaurant?.resid} className="lg:w-1/3 md:w-1/2 sm:w-1/1 xs:w-2/3 xs:m-auto w-[100%] flex flex-wrap flex-row box-border">
             <RestaurantCard {...restaurant} key={restaurant.resid} />
           </Link>
         ))}
