@@ -17,7 +17,8 @@ import Cart from "./components/Cart";
 import SignUp from "./components/Signup";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import ResImgTest from "./components/ResImgTest";
+import DistributorRegister from "./components/distributor/Signup";
+import DistributorLogin from "./components/distributor/login";
 const AppLayout = () => {
   return (
     <Provider store={AppStore}>
@@ -52,16 +53,20 @@ const appRouter = createBrowserRouter([
         element: <Cart />,
       },
       {
-        path: "/login",
+        path: "/user/login",
         element: <Login />,
       },
       {
-        path: "/signup",
-        element: <SignUp />,
+        path: "/distributor/register",
+        element: <DistributorRegister />,
       },
       {
-        path: "/test",
-        element: <ResImgTest />,
+        path: "/distributor/login",
+        element: <DistributorLogin />,
+      },
+      {
+        path: "/user/signup",
+        element: <SignUp />,
       },
       {
         path: "/restaurant/:resId",

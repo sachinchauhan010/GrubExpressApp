@@ -13,22 +13,23 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+
 const defaultTheme = createTheme();
 
-export default function SignUp() {
-  const navigate=useNavigate();
-  const [userData, setUserData] = React.useState({
+export default function DistributorRegister() {
+
+  const [distributorData, setDistributorData] = React.useState({
     name: '',
     phoneno: '',
     email: '',
     password: '',
+    adharno:'',
   });
 
   function handleChange(e) {
     const { name, value } = e.target;
-    setUserData({
-      ...userData,
+    setDistributorData({
+      ...distributorData,
       [name]: value,
     })
   }
@@ -36,12 +37,12 @@ export default function SignUp() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/api/user/register', {
+      const response = await fetch('http://localhost:3000/api/distributor/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(userData),
+        body: JSON.stringify(distributorData),
       });
       const apiresponse = await response.json();
 
@@ -50,14 +51,13 @@ export default function SignUp() {
         throw new Error('Network response was not ok');
       }
       toast.success(apiresponse.message);
-      setUserData({
-        name:'',
-        phoneno:'',
-        email:'',
-        password:'',
-      });
-
-      navigate("/")
+      setDistributorData({
+        name: '',
+        phoneno: '',
+        email: '',
+        password: '',
+        adharno:'',
+      })
     } catch (error) {
       console.log(error.message);
     }
@@ -79,7 +79,7 @@ export default function SignUp() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Sign up as Distributor
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
@@ -91,7 +91,7 @@ export default function SignUp() {
                   fullWidth
                   id="Name"
                   label="Name"
-                  value={userData.name}
+                  value={distributorData.name}
                   onChange={handleChange}
                   autoFocus
                 />
@@ -105,9 +105,23 @@ export default function SignUp() {
                   id="phoneno"
                   label="Contact Number"
                   name="phoneno"
-                  value={userData.phoneno}
+                  value={distributorData.phoneno}
                   onChange={handleChange}
-                  autoComplete="tel"
+                  autoFocus
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  type='text'
+                  id="adharno"
+                  label="Aadhar Number"
+                  name="adharno"
+                  value={distributorData.adharno}
+                  onChange={handleChange}
+                  autoComplete="t"
                   autoFocus
                 />
               </Grid>
@@ -118,7 +132,7 @@ export default function SignUp() {
                   id="email"
                   label="Email Address"
                   name="email"
-                  value={userData.email}
+                  value={distributorData.email}
                   onChange={handleChange}
                   autoComplete="email"
                 />
@@ -131,7 +145,7 @@ export default function SignUp() {
                   label="Password"
                   type="password"
                   id="password"
-                  value={userData.password}
+                  value={distributorData.password}
                   onChange={handleChange}
                   autoComplete="new-password"
                 />
@@ -153,7 +167,7 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/user/login" variant="body2">
+                <Link href="/distributor/login" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>

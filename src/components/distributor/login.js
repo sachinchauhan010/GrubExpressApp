@@ -15,23 +15,23 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { userLogout } from '../utils/userLogSlice';
+import { userLogout } from '../../utils/userLogSlice';
 
 
 const defaultTheme = createTheme();
 
-export default function SignIn() {
+export default function DistributorLogin() {
   const dispatch= useDispatch();
   const navigate=useNavigate();
-  const [userLoginData, setUserLoginData]=React.useState({
+  const [distributorLoginData, setDistributorLoginData]=React.useState({
     email:'',
     password:'',
    });
 
   function handleChange(e) {
     const { name, value } = e.target;
-    setUserLoginData({
-      ...userLoginData,
+    setDistributorLoginData({
+      ...distributorLoginData,
       [name]: value,
     })
   }
@@ -39,12 +39,12 @@ export default function SignIn() {
   const handleSubmit =async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/api/user/login', {
+      const response = await fetch('http://localhost:3000/api/distributor/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(userLoginData),
+        body: JSON.stringify(distributorLoginData),
         credentials: 'include',
       });
       const apiresponse = await response.json();
@@ -79,7 +79,7 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign in as distributor
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -88,7 +88,7 @@ export default function SignIn() {
               id="email"
               label="Email Address"
               name="email"
-              value={userLoginData.email}
+              value={distributorLoginData.email}
               onChange={handleChange}
               autoComplete="email"
               sx={{ mt: 3, mb: 2 }}
@@ -100,7 +100,7 @@ export default function SignIn() {
               label="Password"
               type="password"
               id="password"
-              value={userLoginData.password}
+              value={distributorLoginData.password}
               onChange={handleChange}
               autoComplete="new-password"
               sx={{ mt: 3}}
@@ -124,7 +124,7 @@ export default function SignIn() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="/user/signup" variant="body2">
+                <Link href="/distributor/register" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

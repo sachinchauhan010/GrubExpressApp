@@ -34,7 +34,7 @@ const Body = () => {
 
   return (
     <section className="bg-blue-50 text-blue-900">
-      <div className="section flex flex-col md:flex-row justify-around items-center h-[80vh] px-10">
+      <div className="section flex flex-col md:flex-row justify-around items-center h-[100vh] px-10">
       <div className="">
         <h1 className="text-5xl font-bold mb-5">
           It's Not Just Food, <br />

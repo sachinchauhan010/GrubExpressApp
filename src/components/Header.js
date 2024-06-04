@@ -1,24 +1,33 @@
-import logo from "../images/Flogo.png";
-import { Link } from "react-router-dom";
-import { UserLogo, ContactLogo, HomeLogo, CartLogo, SearchLogo } from "../images/SvgIcon";
-import Search from "./Search";
-import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import logo from "../images/Flogo.png";
+import { UserLogo, ContactLogo, HomeLogo, CartLogo, SearchLogo } from "../images/SvgIcon";
+import UserTypeDialog from './dialog/userType';
 import { userLogin, userLogout } from "../utils/userLogSlice";
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [dialogOpen, setDialogOpen] = useState(false); 
   const userLogStatus = useSelector((store) => store.userlog.userState);
-
   const cartItems = useSelector((store) => store.cart.items);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const handleDialogClose = (selectedValue) => {
+    setDialogOpen(false);
+    if (selectedValue) {
+      if(selectedValue==='Login as distributor'){
+        navigate('/distributor/login')
+      }else{
+        navigate('/user/login');
+      }
+    }
+  };
 
   const handleLogAndMenu = async () => {
     setIsMenuOpen(false);
+    setDialogOpen(true);
     try {
       const response = await fetch('http://localhost:3000/api/user/auth', {
         method: 'POST',
@@ -28,8 +37,8 @@ const Header = () => {
         body: JSON.stringify(),
         credentials: 'include',
       });
-      const apiRespose = await response.json();
-      if (apiRespose.success) {
+      const apiResponse = await response.json();
+      if (apiResponse.success) {
         dispatch(userLogout("logout"));
         try {
           const response = await fetch('http://localhost:3000/api/user/logout', {
@@ -40,20 +49,19 @@ const Header = () => {
             body: JSON.stringify(),
             credentials: 'include',
           });
-          const apiRespose = await response.json();
-          if (apiRespose.success) {
-            toast.success(apiRespose.message);
+          const apiResponse = await response.json();
+          if (apiResponse.success) {
+            toast.success(apiResponse.message);
             dispatch(userLogin("login"))
             navigate('/');
           } else {
-            toast.error(apiRespose.message);
+            toast.error(apiResponse.message);
           }
-
         } catch (error) {
           console.log("Error in logout", error.message);
         }
       } else {
-        navigate('/login');
+        openDialog();  // Open the dialog when the user is not authenticated
       }
     } catch (error) {
       console.log(error.message);
@@ -61,8 +69,8 @@ const Header = () => {
   }
 
   return (
-    <section className="shadow-xl rounded-b-xl">
-      <div className="headerContainer flex justify-between items-center mx-10 my-4 ">
+    <section className="rounded-b-xl bg-transparent">
+      <div className="headerContainer flex justify-between items-center mx-10 mt-4 ">
         <div className="logoContainer">
           <div className="logo">
             <img src={logo} alt="" className="h-[70px] -mt-4" />
@@ -73,34 +81,42 @@ const Header = () => {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
           </svg>
         </div>
-        <div className={`navLinksContainer ${isMenuOpen ? 'block' : 'hidden'} md:flex justify-between space-x-16 text-lg font-semibold text-fuchsia-600`}>
-          <Link to="/" onClick={() => setIsMenuOpen(false)}>
-            <div className="navItem flex gap-x-2 hover:text-orange-500">
+        <div className={`navLinksContainer ${isMenuOpen ? 'block' : 'hidden'} md:flex justify-between space-x-16 text-lg font-medium text-fuchsia-600`}>
+          <Link to="/" onClick={() => setIsMenuOpen(false)} className="relative group">
+            <div className="navItem flex gap-x-2 hover:text-blue-900">
               {HomeLogo}Home
             </div>
+            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-900 scale-x-0 group-hover:scale-x-100 transition-transform origin-bottom-right group-hover:origin-bottom-left"></span>
           </Link>
-          <Link to="/search" onClick={() => setIsMenuOpen(false)}>
-            <div className="navItem flex gap-x-2 hover:text-orange-500">
+          <Link to="/search" onClick={() => setIsMenuOpen(false)} className='relative group'>
+            <div className="navItem flex gap-x-2 hover:text-blue-900">
               {SearchLogo}Search
             </div>
+            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-900 scale-x-0 group-hover:scale-x-100 transition-transform origin-bottom-right group-hover:origin-bottom-left"></span>
           </Link>
-          <Link to="/contact" onClick={() => setIsMenuOpen(false)}>
-            <div className="navItem flex gap-x-2 hover:text-orange-500">
+          <Link to="/contact" onClick={() => setIsMenuOpen(false)} className='relative group'>
+            <div className="navItem flex gap-x-2 hover:text-blue-900">
               {ContactLogo}Contact
             </div>
+            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-900 scale-x-0 group-hover:scale-x-100 transition-transform origin-bottom-right group-hover:origin-bottom-left"></span>
+
           </Link>
-          <Link to="/cart" onClick={() => setIsMenuOpen(false)}>
-            <div className="navItem flex gap-x-2 hover:text-orange-500 relative">
-              {CartLogo}Cart<span className="absolute bottom-4 left-2">{cartItems.length}</span>
+          <Link to="/cart" onClick={() => setIsMenuOpen(false)} className='relative group'>
+            <div className="navItem flex gap-x-2 hover:text-blue-900 relative">
+              {CartLogo}Cart<span className="absolute bottom-4 left-2">{cartItems?cartItems.length: 0}</span>
             </div>
+            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-900 scale-x-0 group-hover:scale-x-100 transition-transform origin-bottom-right group-hover:origin-bottom-left"></span>
+
           </Link>
-          <Link to="/login" onClick={handleLogAndMenu}>
-            <div className="navItem flex gap-x-2 hover:text-orange-500">
+          <Link to="#" onClick={handleLogAndMenu} className='relative group'> 
+            <div className="navItem flex gap-x-2 hover:text-blue-900">
               {UserLogo}{userLogStatus}
             </div>
+            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-900 scale-x-0 group-hover:scale-x-100 transition-transform origin-bottom-right group-hover:origin-bottom-left"></span>
           </Link>
         </div>
       </div>
+      <UserTypeDialog open={dialogOpen} onClose={handleDialogClose} />
     </section>
   );
 };

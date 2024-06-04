@@ -8,10 +8,9 @@ const Cart = () => {
   const cartItems = useSelector((store) => store.cart.items);
   const dispatch = useDispatch();
   const [totalCost, setTotalCost] = useState(0);
-  const [fetchCartItemIds, setFetchCartItemIds]=useState([])
+  const [CartItem, setCartItem]=useState([])
 
   useEffect(() => {
-    // Calculate the total cost whenever cartItems change
     const newTotalCost = cartItems.reduce((total, item) => total + item.price, 0);
     setTotalCost(newTotalCost);
   }, [cartItems]);
@@ -27,10 +26,10 @@ const Cart = () => {
         credentials: 'include',
       });
       
-      const apiRespose = await response.json();
-      const cartId=apiRespose.userCart || [];
+      const apiResponse = await response.json();
+      const cartDetails=apiResponse.userCart || [];
 
-      setFetchCartItemIds(cartId);
+      setCartItem(cartDetails);
     };
     fetchItem();
   },[])
@@ -42,7 +41,7 @@ const Cart = () => {
   const updateTotalCost = (priceChange) => {
     setTotalCost((prevTotal) => prevTotal + priceChange);
   };
-
+  console.log(cartItems," cartItems");
   return (
     <section>
       <h2 className="text-2xl md:text-4xl font-bold text-gray-600 text-center pt-6">
@@ -55,7 +54,7 @@ const Cart = () => {
         Clear Cart
       </button>
       {cartItems.map((item) => (
-        <CartList key={item.id} item={item} updateTotalCost={updateTotalCost} />
+        <CartList key={item._id} item={item} updateTotalCost={updateTotalCost} />
       ))}
       <p className="totalPrice md:text-xl text-lg font-bold text-center text-orange-400 mb-10">
         Total Price: ₹{totalCost / 100}
