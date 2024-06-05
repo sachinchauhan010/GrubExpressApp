@@ -44,7 +44,7 @@ export default function SignUp() {
         body: JSON.stringify(userData),
       });
       const apiresponse = await response.json();
-
+      console.log(apiresponse, "%%%%%%")
       if (!response.ok) {
         toast.error(apiresponse.message)
         throw new Error('Network response was not ok');

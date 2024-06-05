@@ -1,4 +1,3 @@
-// localStorage.js
 
 export const loadState = () => {
     try {

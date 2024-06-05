@@ -14,7 +14,7 @@ const RestaurantMenu = () => {
   useEffect(() => {
     const fetchRestaurantDishes = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/distributor/get-restaurant-dish', {
+        const response = await fetch(`http://localhost:3000/api/distributor/get-restaurant-dish/${resId}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
