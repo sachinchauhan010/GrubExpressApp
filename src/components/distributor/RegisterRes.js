@@ -48,7 +48,8 @@ export default function FormDialog() {
     try {
       const response = await fetch('http://localhost:3000/api/distributor/register-restaurant', {
         method: 'POST',
-        body: formData,
+        body: JSON.stringify(resDetails),
+        credentials: 'include'
       });
 
       const apiResponse = await response.json();
