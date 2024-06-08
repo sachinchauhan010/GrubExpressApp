@@ -56,7 +56,7 @@ export default function DistributorLogin() {
       }
       toast.success(apiresponse.message);
       dispatch(userLogout('logout'));
-      navigate('/cart');
+      navigate('/distributor/restaurant');
 
     } catch (error) {
       console.log(error.message);
