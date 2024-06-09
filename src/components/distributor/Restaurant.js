@@ -41,7 +41,7 @@ function Restaurant() {
                   <p>{resname}</p>
                   <p>{reslocation}</p>
                   <p>{restype}</p>
-                  <p>{rescuisine}</p>
+                  {/* <p>{rescuisine}</p> */}
                   <p>{resopentime} - {resclosetime}</p>
                   <p>{resowner}</p>
                 </div>

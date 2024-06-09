@@ -6,6 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { Input } from '@mui/material';
 
 export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
@@ -19,7 +20,7 @@ export default function FormDialog() {
     resopentime: '',
     resclosetime: '',
     resdescription: '',
-    resimage: null // Updated to store a file object
+    resimage: null
   });
 
   const handleClickOpen = () => {
@@ -34,7 +35,7 @@ export default function FormDialog() {
     const { name, value, files } = event.target;
     setResDetails(prevDetails => ({
       ...prevDetails,
-      [name]: files ? files[0] : value // Handle file input
+      [name]: files ? files[0] : value
     }));
   };
 
@@ -44,16 +45,14 @@ export default function FormDialog() {
     Object.keys(resDetails).forEach(key => {
       formData.append(key, resDetails[key]);
     });
-
     try {
       const response = await fetch('http://localhost:3000/api/distributor/register-restaurant', {
         method: 'POST',
-        body: JSON.stringify(resDetails),
+        body: formData,
         credentials: 'include'
       });
 
       const apiResponse = await response.json();
-      console.log(apiResponse, "&&&&");
       if (!response.ok) {
         console.log(apiResponse.message);
       }
@@ -184,7 +183,7 @@ export default function FormDialog() {
               value={resDetails.resdescription}
               onChange={handleChange}
             />
-            <input
+            <Input
               margin="dense"
               id="resimage"
               name="resimage"
