@@ -66,12 +66,10 @@ const RestaurantMenu = () => {
   if (restaurantDishes === null) {
     return <Shimmer />;
   }
-  console.log(restaurantDishes, "&&&&&&&&&& Dish");
   return (
     <section className="bg-blue-50">
       {restaurantDishes.map((dish) => (
         <div className="flex justify-around mb-10 border-b-2 py-10">
-          {console.log(dish, "$$$$$$$$$$$")}
           <div>
             <p className="text-xl font-bold md:text-2xl text-blue-700 ">{dish.itemid.itemname}</p>
             <p className="text-md font-semibold text-fuchsia-700 m-y-1">

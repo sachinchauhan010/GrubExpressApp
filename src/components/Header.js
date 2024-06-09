@@ -10,26 +10,33 @@ import { userLogin, userLogout } from "../utils/userLogSlice";
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [dialogOpen, setDialogOpen] = useState(false); 
+  const [dialogOpen, setDialogOpen] = useState(false);
   const userLogStatus = useSelector((store) => store.userlog.userState);
   const cartItems = useSelector((store) => store.cart.items);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [userType, setUserType] = useState(null);
+
   const handleDialogClose = (selectedValue) => {
     setDialogOpen(false);
     if (selectedValue) {
-      if(selectedValue==='Login as distributor'){
+      if (selectedValue === 'Login as distributor') {
+        setUserType('distributor')
         navigate('/distributor/login')
-      }else{
+      } else {
+        setUserType('user')
         navigate('/user/login');
       }
     }
   };
+  console.log(userType, "*****")
+
 
   const handleLogAndMenu = async () => {
     setIsMenuOpen(false);
     setDialogOpen(true);
+
     try {
-      const response = await fetch('http://localhost:3000/api/user/auth', {
+      const response = await fetch(`http://localhost:3000/api/${userType}/auth`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -41,7 +48,7 @@ const Header = () => {
       if (apiResponse.success) {
         dispatch(userLogout("logout"));
         try {
-          const response = await fetch('http://localhost:3000/api/user/logout', {
+          const response = await fetch(`http://localhost:3000/api/${userType}/logout`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -103,12 +110,12 @@ const Header = () => {
           </Link>
           <Link to="/cart" onClick={() => setIsMenuOpen(false)} className='relative group'>
             <div className="navItem flex gap-x-2 hover:text-blue-900 relative">
-              {CartLogo}Cart<span className="absolute bottom-4 left-2">{cartItems?cartItems.length: 0}</span>
+              {CartLogo}Cart<span className="absolute bottom-4 left-2">{cartItems ? cartItems.length : 0}</span>
             </div>
             <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-900 scale-x-0 group-hover:scale-x-100 transition-transform origin-bottom-right group-hover:origin-bottom-left"></span>
 
           </Link>
-          <Link to="#" onClick={handleLogAndMenu} className='relative group'> 
+          <Link to="#" onClick={handleLogAndMenu} className='relative group'>
             <div className="navItem flex gap-x-2 hover:text-blue-900">
               {UserLogo}{userLogStatus}
             </div>

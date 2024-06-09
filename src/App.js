@@ -19,6 +19,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DistributorRegister from "./components/distributor/Signup";
 import DistributorLogin from "./components/distributor/login";
+import Restaurant from "./components/distributor/Restaurant"
 const AppLayout = () => {
   return (
     <Provider store={AppStore}>
@@ -75,6 +76,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/cart",
         element: <Cart />,
+      },
+      {
+        path: "/distributor/restaurant",
+        element: <Restaurant/>
       },
     ],
     errorElement: <Error />,
