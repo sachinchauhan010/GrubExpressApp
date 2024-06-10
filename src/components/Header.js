@@ -28,8 +28,6 @@ const Header = () => {
       }
     }
   };
-  console.log(userType, "*****")
-
 
   const handleLogAndMenu = async () => {
     setIsMenuOpen(false);
