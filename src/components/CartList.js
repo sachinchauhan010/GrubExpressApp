@@ -4,6 +4,7 @@ import { removeItem } from "../utils/CartSlice";
 import { useDispatch } from "react-redux";
 
 const CartList = ({ item, updateTotalCost }) => {
+  console.log(item, )
   const { itemname, iteminstock, itemdescription, itemphoto, itemprice } = item;
   const [counter, setCounter] = useState(1);
   const [cost, setCost] = useState(itemprice);
