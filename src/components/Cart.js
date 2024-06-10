@@ -8,7 +8,7 @@ const Cart = () => {
   const cartItems = useSelector((store) => store.cart.items);
   const dispatch = useDispatch();
   const [totalCost, setTotalCost] = useState(0);
-  const [CartItem, setCartItem]=useState([])
+  const [cartItem, setCartItem]=useState([])
 
   useEffect(() => {
     const newTotalCost = cartItems.reduce((total, item) => total + item.price, 0);
@@ -28,7 +28,6 @@ const Cart = () => {
       
       const apiResponse = await response.json();
       const cartDetails=apiResponse.userCart || [];
-
       setCartItem(cartDetails);
     };
     fetchItem();
@@ -41,7 +40,7 @@ const Cart = () => {
   const updateTotalCost = (priceChange) => {
     setTotalCost((prevTotal) => prevTotal + priceChange);
   };
-  console.log(cartItems," cartItems");
+  console.log(cartItem," cartItems");
   return (
     <section>
       <h2 className="text-2xl md:text-4xl font-bold text-gray-600 text-center pt-6">
@@ -53,11 +52,11 @@ const Cart = () => {
       >
         Clear Cart
       </button>
-      {cartItems.map((item) => (
-        <CartList key={item._id} item={item} updateTotalCost={updateTotalCost} />
+      {cartItem.map((item) => (
+        <CartList item={item.itemId} updateTotalCost={updateTotalCost} />
       ))}
       <p className="totalPrice md:text-xl text-lg font-bold text-center text-orange-400 mb-10">
-        Total Price: ₹{totalCost / 100}
+        Total Price: ₹{totalCost}
       </p>
     </section>
   );

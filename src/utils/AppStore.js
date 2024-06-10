@@ -14,7 +14,7 @@ const AppStore = configureStore({
 
 AppStore.subscribe(() => {
     saveState({
-      cart: AppStore.getState().cart,
+      // cart: AppStore.getState().cart,
       userlog: AppStore.getState().userlog,
     });
   });
