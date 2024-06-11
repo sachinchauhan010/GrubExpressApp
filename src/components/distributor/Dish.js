@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  Typography,
+  Button,
+} from "@material-tailwind/react";
+
 
 function Dish() {
   const { resId } = useParams();
@@ -30,15 +38,42 @@ function Dish() {
     <div>
 
       {dish.map((dish) => (
-        <div className='flex justify-around items-center'>
-          <img src={dish.itemimage} alt="" />
-          <div className='flex flex-col justify-center'>
-            <p>{dish.itemname}</p>
-            <p>{dish.itemdescription}</p>
-            <p>{dish.itemprice}</p>
-          </div>
-
+        <div className='flex justify-around items-center mt-20 relative'>
+          <Card className="w-full max-w-[54rem] flex-row justify-start space-x-10 h-[270px] bg-blue-100">
+            <CardHeader
+              shadow={false}
+              floated={false}
+              className="m-0 w-2/5 shrink-0 rounded-r-none"
+            >
+              <img
+                src={dish.itemimage}
+                alt="dish image"
+                className="h-full w-full object-cover p-2"
+              />
+            </CardHeader>
+            <CardBody className='p-2'>
+              <Typography variant="h6" color="gray" className="mb-4 uppercase">
+                {dish.itemname}
+              </Typography>
+              <Typography variant="h4" color="blue-gray" className="mb-2">
+                {dish.itemprice}
+              </Typography>
+              <Typography color="gray" className="mb-8 font-normal">
+                {dish.itemdescription}
+              </Typography>
+              <div className='absolute -bottom-1 right-0 flex justify-between space-x-10'>
+                <Link to="#" className="inline-block py-2 px-4 bg-blue-400 text-white rounded rounded-b-xl">
+                  Edit Details
+                </Link>
+                <Link to="#" className="inline-block py-2 px-4 bg-red-500 text-white rounded rounded-b-xl">
+                  Remove Dish
+                </Link>
+              </div>
+            </CardBody>
+          </Card>
         </div>
+
+
       ))}
     </div>
   )

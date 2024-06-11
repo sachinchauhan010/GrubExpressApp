@@ -1,130 +1,113 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import { Input } from '@mui/material';
-import { toast } from 'react-toastify';
+import React, { useEffect, useState } from 'react';
+import RegisterRestaurant from './RegisterRes';
+import RegisterDish from './RegisterItem';
+import { Link } from 'react-router-dom';
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  Typography,
+} from "@material-tailwind/react";
 
+function Restaurant() {
+  const [registeredRes, setRegisteredRes] = useState([]);
 
-export default function RegisterDish({resId}) {
-    const [open, setOpen] = React.useState(false);
-    const [itemDetails, setItemDetails] = React.useState({
-        itemname: '',
-        itemdescription: '',
-        itemprice: '',
-        itemimage: null
-    });
-
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-    const handleChange = (event) => {
-        const { name, value, files } = event.target;
-        setItemDetails(prevDetails => ({
-            ...prevDetails,
-            [name]: files ? files[0] : value
-        }));
-    };
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const formData = new FormData();
-        Object.keys(itemDetails).forEach(key => {
-            formData.append(key, itemDetails[key]);
+  useEffect(() => {
+    const fetchRegisteredRes = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/api/distributor/get-registered-restaurant', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
         });
-        try {
-            const response = await fetch(`http://localhost:3000/api/distributor/register-restaurant-dish/${resId}`, {
-                method: 'POST',
-                body: formData,
-                credentials: 'include'
-            });
-            const apiResponse = await response.json();
-            console.log(apiResponse)
-            if (!response.ok) {
-                console.log(apiResponse.message);
-            }
-            if (apiResponse.success) {
-                toast.success("Dish Registered Successfully");
-                handleClose();
-            }else{
-                toast.error(apiResponse.message)
-            }
-        } catch (error) {
-            console.error("Error in saving restaurant data:", error.message);
+        const apiresponse = await response.json();
+        if (!response.ok) {
+          throw new Error(apiresponse.message || 'Network response was not ok');
         }
+        console.log(apiresponse, "api Response");
+        setRegisteredRes(apiresponse);
+      } catch (error) {
+        console.error("Error in fetching API data:", error.message);
+      }
     };
+    fetchRegisteredRes();
+  }, [registeredRes]);
 
-    return (
-        <React.Fragment>
-            <Button variant="outlined" onClick={handleClickOpen}>
-                Register Dish
-            </Button>
-            <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Register Restaurant Dish</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        To register a restaurant dish, please enter the dish details here.
-                    </DialogContentText>
-                    <form onSubmit={handleSubmit}>
-                        <TextField
-                            required
-                            margin="dense"
-                            id="itemname"
-                            name="itemname"
-                            label="Dish Name"
-                            type="text"
-                            fullWidth
-                            variant="standard"
-                            value={itemDetails.itemname}
-                            onChange={handleChange}
-                        />
-                        <TextField
-                            required
-                            margin="dense"
-                            id="itemprice"
-                            name="itemprice"
-                            label="Dish Price"
-                            type="text"
-                            fullWidth
-                            variant="standard"
-                            value={itemDetails.itemprice}
-                            onChange={handleChange}
-                        />        
-                        <TextField
-                            margin="dense"
-                            id="itemdescription"
-                            name="itemdescription"
-                            label="Description"
-                            type="text"
-                            fullWidth
-                            variant="standard"
-                            value={itemDetails.itemdescription}
-                            onChange={handleChange}
-                        />
-                        <Input
-                            margin="dense"
-                            id="itemimage"
-                            name="itemimage"
-                            type="file"
-                            fullWidth
-                            onChange={handleChange}
-                        />
-                        <DialogActions>
-                            <Button onClick={handleClose}>Cancel</Button>
-                            <Button type="submit">Register</Button>
-                        </DialogActions>
-                    </form>
-                </DialogContent>
-            </Dialog>
-        </React.Fragment>
-    );
+  return (
+    <section>
+      <RegisterRestaurant />
+      <div>
+        <h2>Registered Restaurant</h2>
+        {console.log(registeredRes, "res")}
+        {registeredRes.length > 0 ? (
+          registeredRes.map((restaurant) => {
+            const { resid, resimage, resname, reslocation, restype, rescuisine, resopentime, resclosetime, resowner } = restaurant;
+            return (
+                <div key={resid} className='shadow-xl'>
+                <div>
+                <RegisterDish resId={resid}/>
+                </div>
+                <Link to={`/distributor/restaurant-dish/${resid}`}>
+                  <div className='flex justify-around items-center'>
+                    <div className='flex justify-around items-center mt-20 relative'>
+                      <Card className="w-full max-w-[54rem] flex-row justify-start space-x-10 h-[270px] bg-blue-100">
+                        <CardHeader
+                          shadow={false}
+                          floated={false}
+                          className="m-0 w-2/5 shrink-0 rounded-r-none"
+                        >
+                          <img
+                            src={resimage}
+                            alt="Restaurant Image"
+                            className="h-full w-full object-cover p-2"
+                          />
+                        </CardHeader>
+                        <CardBody className='p-2'>
+                          <Typography variant="h6" color="gray" className="mb-4 uppercase">
+                            {resname}
+                          </Typography>
+                          <Typography variant="h4" color="blue-gray" className="mb-2">
+                            {reslocation}
+                          </Typography>
+                          <Typography variant="h4" color="blue-gray" className="mb-2">
+                            {restype}
+                          </Typography>
+                          <Typography variant="h4" color="blue-gray" className="mb-2">
+                            {rescuisine}
+                          </Typography>
+                          <Typography variant="h4" color="blue-gray" className="mb-2">
+                            {resopentime}
+                          </Typography>
+                          <Typography variant="h4" color="blue-gray" className="mb-2">
+                            {resclosetime}
+                          </Typography>
+                          <Typography variant="h4" color="blue-gray" className="mb-2">
+                            {resowner}
+                          </Typography>
+                          <div className='absolute -bottom-1 right-0 flex justify-between space-x-10'>
+                            <Link to="#" className="inline-block py-2 px-4 bg-blue-400 text-white rounded rounded-b-xl">
+                              Edit Details
+                            </Link>
+                            <Link to="#" className="inline-block py-2 px-4 bg-red-500 text-white rounded rounded-b-xl">
+                              Remove Restaurant
+                            </Link>
+                          </div>
+                        </CardBody>
+                      </Card>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            );
+          })
+        ) : (
+          <p>No registered restaurants found.</p>
+        )}
+      </div>
+    </section>
+  );
 }
+
+export default Restaurant;
