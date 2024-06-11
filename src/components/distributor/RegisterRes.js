@@ -7,6 +7,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Input } from '@mui/material';
+import { toast } from 'react-toastify';
+
 
 export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
@@ -57,7 +59,7 @@ export default function FormDialog() {
         console.log(apiResponse.message);
       }
 
-      console.log(apiResponse);
+      toast.success("Restaurant Registered Successfully");
       handleClose();
     } catch (error) {
       console.error("Error in saving restaurant data:", error.message);

@@ -13,11 +13,13 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+
 
 const defaultTheme = createTheme();
 
 export default function DistributorRegister() {
-
+  const navigate=useNavigate()
   const [distributorData, setDistributorData] = React.useState({
     name: '',
     phoneno: '',
@@ -51,6 +53,7 @@ export default function DistributorRegister() {
         throw new Error('Network response was not ok');
       }
       toast.success(apiresponse.message);
+      navigate('/distributor/restaurant')
       setDistributorData({
         name: '',
         phoneno: '',

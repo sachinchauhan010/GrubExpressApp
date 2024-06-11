@@ -50,7 +50,7 @@ const Body = () => {
         <a href="#menu" className="btn">Explore Menu</a>
       </div>
       <div className="" >
-        <img src="https://raw.githubusercontent.com/sachinchauhan010/GrubExpressApp/devlop/src/images/chef.jpeg" alt="" className="" />
+        <img src="https://raw.githubusercontent.com/sachinchauhan010/GrubExpressApp/master/src/images/chef.jpeg?token=GHSAT0AAAAAACLYQ7CYPW5MQZ2HV2JHGEKQZTG7SBQ" alt="" className="" />
       </div>
     </div>
       <Title />
