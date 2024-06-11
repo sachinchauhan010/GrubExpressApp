@@ -68,9 +68,10 @@ export default function FormDialog() {
 
   return (
     <React.Fragment>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Register Restaurant
-      </Button>
+      <button onClick={handleClickOpen}
+        className="px-4 py-2 rounded z-10 bg-blue-400 text-gray-50 font-semibold hover:bg-fuchsia-200 hover:text-gray-700">
+        ADD RESTAURANT
+      </button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Register Restaurant</DialogTitle>
         <DialogContent>
