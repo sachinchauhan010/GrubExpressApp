@@ -31,6 +31,7 @@ const Header = () => {
         body: JSON.stringify(),
         credentials: 'include',
       });
+      console.log(response)
       const apiResponse = await response.json();
       if (apiResponse.success) {
         setCartLength(apiResponse.userCart.length)
@@ -42,7 +43,9 @@ const Header = () => {
   }, [])   
 
   useEffect(()=>{
+
    const getUserType=async ()=>{
+    console.log(process.env.API_URI)
     try {
       const response = await fetch(process.env.API_URI+"/api/distributor/get-user-type-token", {
         method: 'POST',
@@ -85,7 +88,7 @@ const Header = () => {
     setDialogOpen(true);
 
     try {
-      const response = await fetch(process.env.API_URI+`/api/${userType}/auth`, {
+      const response = await fetch(process.env.API_URI`/api/${userType}/auth`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -97,7 +100,7 @@ const Header = () => {
       if (apiResponse.success) {
         dispatch(userLogout("logout"));
         try {
-          const response = await fetch(process.env.API_URI+`/api/${userType}/logout`, {
+          const response = await fetch(process.env.API_URI`/api/${userType}/logout`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
