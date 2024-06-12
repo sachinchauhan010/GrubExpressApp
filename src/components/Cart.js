@@ -17,7 +17,7 @@ const Cart = () => {
 
   useEffect(()=>{
     const fetchItem=async ()=>{
-      const response = await fetch('http://localhost:3000/api/user/get-user-cart', {
+      const response = await fetch(process.env.API_URI+'/api/user/get-user-cart', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

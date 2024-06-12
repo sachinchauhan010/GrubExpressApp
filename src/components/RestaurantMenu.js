@@ -14,7 +14,7 @@ const RestaurantMenu = () => {
   useEffect(() => {
     const fetchRestaurantDishes = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/distributor/get-restaurant-dish/${resId}`, {
+        const response = await fetch(process.env.API_URI+`/api/distributor/get-restaurant-dish/${resId}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ const RestaurantMenu = () => {
   }, [resId]);
 
   const handleCartItem = async (item) => {
-    const response = await fetch('http://localhost:3000/api/user/auth', {
+    const response = await fetch(process.env.API_URI+'/api/user/auth', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ const RestaurantMenu = () => {
     const apiRespose = await response.json();
     if (apiRespose.success) {
       dispatch(addItem(item));
-      const response = await fetch('http://localhost:3000/api/user/add-to-cart', {
+      const response = await fetch(process.env.API_URI+'/api/user/add-to-cart', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

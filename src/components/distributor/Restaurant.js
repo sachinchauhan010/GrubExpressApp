@@ -15,7 +15,7 @@ function Restaurant() {
   useEffect(() => {
     const fetchRegisteredRes = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/distributor/get-registered-restaurant', {
+        const response = await fetch(process.env.API_URI+'/api/distributor/get-registered-restaurant', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

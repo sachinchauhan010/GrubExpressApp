@@ -48,7 +48,7 @@ export default function FormDialog() {
       formData.append(key, resDetails[key]);
     });
     try {
-      const response = await fetch('http://localhost:3000/api/distributor/register-restaurant', {
+      const response = await fetch(process.env.API_URI+'/api/distributor/register-restaurant', {
         method: 'POST',
         body: formData,
         credentials: 'include'

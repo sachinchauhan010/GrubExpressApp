@@ -23,7 +23,7 @@ const Header = () => {
 
   useEffect(() => {
     const getCartLength = async () => {
-      const response = await fetch(`http://localhost:3000/api/user/get-user-cart`, {
+      const response = await fetch(process.env.API_URI+'/api/user/get-user-cart', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ const Header = () => {
   useEffect(()=>{
    const getUserType=async ()=>{
     try {
-      const response = await fetch("http://localhost:3000/api/distributor/get-user-type-token", {
+      const response = await fetch(process.env.API_URI+"/api/distributor/get-user-type-token", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -85,7 +85,7 @@ const Header = () => {
     setDialogOpen(true);
 
     try {
-      const response = await fetch(`http://localhost:3000/api/${userType}/auth`, {
+      const response = await fetch(process.env.API_URI+`/api/${userType}/auth`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -97,7 +97,7 @@ const Header = () => {
       if (apiResponse.success) {
         dispatch(userLogout("logout"));
         try {
-          const response = await fetch(`http://localhost:3000/api/${userType}/logout`, {
+          const response = await fetch(process.env.API_URI+`/api/${userType}/logout`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
