@@ -3,6 +3,7 @@ import Shimmer from "./Shimmer";
 import { useEffect, useState } from "react";
 import Title from "./Title";
 import { Link } from "react-router-dom";
+import chefImage from '../images/chef.jpeg';
 
 const Body = () => {
   const [restaurants, setRestaurants] = useState(null);
@@ -50,7 +51,7 @@ const Body = () => {
         <a href="#menu" className="btn">Explore Menu</a>
       </div>
       <div className="" >
-        <img src="https://raw.githubusercontent.com/sachinchauhan010/GrubExpressApp/master/src/images/chef.jpeg?token=GHSAT0AAAAAACLYQ7CYPW5MQZ2HV2JHGEKQZTG7SBQ" alt="" className="" />
+        <img src={chefImage} alt="chef Image" className="" />
       </div>
     </div>
       <Title />
