@@ -39,7 +39,7 @@ export default function DistributorRegister() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/api/distributor/register', {
+      const response = await fetch(process.env.API_URI+'/api/distributor/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

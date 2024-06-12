@@ -42,7 +42,7 @@ export default function RegisterDish({resId}) {
             formData.append(key, itemDetails[key]);
         });
         try {
-            const response = await fetch(`http://localhost:3000/api/distributor/register-restaurant-dish/${resId}`, {
+            const response = await fetch(process.env.API_URI+`/api/distributor/register-restaurant-dish/${resId}`, {
                 method: 'POST',
                 body: formData,
                 credentials: 'include'
