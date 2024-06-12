@@ -26,7 +26,8 @@ const AppLayout = () => {
   return (
     <Provider store={AppStore}>
       <section>
-          <ToastContainer />
+          <ToastContainer
+           style={{ marginTop: '50px' }}  />
           <Header />
           <Outlet />
       </section>

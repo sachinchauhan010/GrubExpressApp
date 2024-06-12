@@ -3,24 +3,26 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import logo from "../images/Flogo.png";
-import { UserLogo, ContactLogo, HomeLogo, CartLogo, SearchLogo } from "../images/SvgIcon";
+import { UserLogo, ContactLogo, HomeLogo, CartLogo, SearchLogo, resLogo } from "../images/SvgIcon";
 import UserTypeDialog from './dialog/userType';
 import { userLogin, userLogout } from "../utils/userLogSlice";
 import { clearCart } from '../utils/CartSlice.js';
 
-
 const Header = () => {
-  
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [dialogOpen, setDialogOpen] = useState(false); 
-  const [userType, setUserType]= useState('user');
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [userType, setUserType] = useState('user');
   const userLogStatus = useSelector((store) => store.userlog.userState);
   const cartItems = useSelector((store) => store.cart.items);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [cartLength, setCartLength]= useState(0)
-  useEffect(()=>{
-    const getCartLength= async()=>{
+  const [cartLength, setCartLength] = useState(0)
+
+
+
+  useEffect(() => {
+    const getCartLength = async () => {
       const response = await fetch(`http://localhost:3000/api/user/get-user-cart`, {
         method: 'POST',
         headers: {
@@ -30,24 +32,48 @@ const Header = () => {
         credentials: 'include',
       });
       const apiResponse = await response.json();
-      if(apiResponse.success){
+      if (apiResponse.success) {
         setCartLength(apiResponse.userCart.length)
-        console.log(cartLength, "Length")
-      }else{
+      } else {
         console.log(apiResponse.message);
       }
-      console.log("Chala")
     }
     getCartLength()
-  },[])
+  }, [])   
+
+  useEffect(()=>{
+   const getUserType=async ()=>{
+    try {
+      const response = await fetch("http://localhost:3000/api/distributor/get-user-type-token", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(),
+        credentials: 'include',
+      });
+      const apiResponse = await response.json();
+      console.log(apiResponse, "TOken")
+
+      if(apiResponse.distributorToken){
+        setUserType('distributor')
+      }else if(apiResponse.token){
+        setUserType('user')
+      }
+    } catch (error) {
+      console.log("Error in Finding Token", error.message)
+    }
+   }
+   getUserType()
+  }, [])
 
   const handleDialogClose = (selectedValue) => {
     setDialogOpen(false);
     if (selectedValue) {
-      if(selectedValue==='Login as distributor'){
+      if (selectedValue === 'Login as distributor') {
         setUserType('distributor')
         navigate('/distributor/login')
-      }else{
+      } else {
         setUserType('user')
         navigate('/user/login');
       }
@@ -58,8 +84,6 @@ const Header = () => {
     setIsMenuOpen(false);
     setDialogOpen(true);
 
-    
-    //Check User Type
     try {
       const response = await fetch(`http://localhost:3000/api/${userType}/auth`, {
         method: 'POST',
@@ -96,7 +120,7 @@ const Header = () => {
           console.log("Error in logout", error.message);
         }
       } else {
-        dispatch(userLogin("login")); 
+        dispatch(userLogin("login"));
         // openDialog();  // Open the dialog when the user is not authenticated
         setDialogOpen(true)
       }
@@ -125,12 +149,15 @@ const Header = () => {
             </div>
             <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-900 scale-x-0 group-hover:scale-x-100 transition-transform origin-bottom-right group-hover:origin-bottom-left"></span>
           </Link>
-          <Link to="/search" onClick={() => setIsMenuOpen(false)} className='relative group'>
-            <div className="navItem flex gap-x-2 hover:text-blue-900">
-              {SearchLogo}Search
-            </div>
-            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-900 scale-x-0 group-hover:scale-x-100 transition-transform origin-bottom-right group-hover:origin-bottom-left"></span>
-          </Link>
+
+          {userType === 'user' && (
+            <Link to="/search" onClick={() => setIsMenuOpen(false)} className='relative group'>
+              <div className="navItem flex gap-x-2 hover:text-blue-900">
+                {SearchLogo}Search
+              </div>
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-900 scale-x-0 group-hover:scale-x-100 transition-transform origin-bottom-right group-hover:origin-bottom-left"></span>
+            </Link>
+          )}
           <Link to="/contact" onClick={() => setIsMenuOpen(false)} className='relative group'>
             <div className="navItem flex gap-x-2 hover:text-blue-900">
               {ContactLogo}Contact
@@ -138,13 +165,24 @@ const Header = () => {
             <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-900 scale-x-0 group-hover:scale-x-100 transition-transform origin-bottom-right group-hover:origin-bottom-left"></span>
 
           </Link>
-          <Link to="/cart" onClick={() => setIsMenuOpen(false)} className='relative group'>
-            <div className="navItem flex gap-x-2 hover:text-blue-900 relative">
-              {CartLogo}Cart<span className="absolute bottom-4 left-2">{cartLength || cartItems.length}</span>
-            </div>
-            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-900 scale-x-0 group-hover:scale-x-100 transition-transform origin-bottom-right group-hover:origin-bottom-left"></span>
+          {(userType == 'distributor') ? (
+            <Link to='/distributor/restaurant' className='relative group'>
+              <div className="navItem flex gap-x-2 hover:text-blue-900 relative">
+                <span className=''>{resLogo}</span> Restaurant
+              </div>
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-900 scale-x-0 group-hover:scale-x-100 transition-transform origin-bottom-right group-hover:origin-bottom-left"></span>
+            </Link>
+          ) : (
+            <Link to="/cart" onClick={() => setIsMenuOpen(false)} className='relative group'>
+              <div className="navItem flex gap-x-2 hover:text-blue-900 relative">
+                {CartLogo}Cart<span className="absolute bottom-4 left-2">{cartLength || cartItems.length}</span>
+              </div>
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-900 scale-x-0 group-hover:scale-x-100 transition-transform origin-bottom-right group-hover:origin-bottom-left"></span>
 
-          </Link>
+            </Link>
+          )
+          }
+
           <Link to="#" onClick={handleLogAndMenu} className='relative group'>
             <div className="navItem flex gap-x-2 hover:text-blue-900">
               {UserLogo}{userLogStatus}
