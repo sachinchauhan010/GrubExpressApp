@@ -39,7 +39,7 @@ const Cart = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(cartItems),
+      body: JSON.stringify([]),
       credentials: 'include',
     })
   }
@@ -59,7 +59,7 @@ const Cart = () => {
       >
         Clear Cart
       </button>
-      {cartItems.map((item) => <CartList item={item.itemId} updateTotalCost={updateTotalCost} cartItems={cartItems} />)}
+      {cartItems.map((item) => <CartList item={item} updateTotalCost={updateTotalCost} cartItems={cartItems} />)}
       <p className="totalPrice md:text-xl text-lg font-bold text-center text-orange-400 mb-10">
         Total Price: ₹{totalCost}
       </p>
