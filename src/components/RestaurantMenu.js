@@ -50,7 +50,7 @@ const RestaurantMenu = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ itemId: item }),
+        body: JSON.stringify(item),
         credentials: 'include',
       });
       const apiRespose = await response.json();
@@ -89,7 +89,7 @@ const RestaurantMenu = () => {
               alt="dish Image"
               className="max-h-36 w-full rounded-lg"
             />
-            <button className="absolute bottom-1 left-0 bg-gray-400 w-full hover:text-white hover:bg-green-300 font-semibold" onClick={() => handleCartItem(dish?.itemid)}>ADD TO CART</button>
+            <button className="absolute bottom-1 left-0 bg-gray-400 w-full hover:text-white hover:bg-green-300 font-semibold" onClick={() => handleCartItem(dish)}>ADD TO CART</button>
           </div>
         </div>
       ))}

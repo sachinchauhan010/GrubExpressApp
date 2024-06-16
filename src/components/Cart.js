@@ -28,6 +28,7 @@ const Cart = () => {
       cartDetails.forEach(item => {
         dispatch(addItem(item))
       })
+      console.log(cartItems, "CartItems")
     }
     fetchItem()
   }, [])
@@ -59,6 +60,7 @@ const Cart = () => {
       >
         Clear Cart
       </button>
+      
       {cartItems.map((item) => <CartList item={item} updateTotalCost={updateTotalCost} cartItems={cartItems} />)}
       <p className="totalPrice md:text-xl text-lg font-bold text-center text-orange-400 mb-10">
         Total Price: ₹{totalCost}
