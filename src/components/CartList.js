@@ -1,10 +1,8 @@
-import { IMG_URL } from "../utils/Constant";
 import { useState } from "react";
 import { removeItem } from "../utils/CartSlice";
 import { useDispatch } from "react-redux";
 
-const CartList = ({ item, updateTotalCost }) => {
-  console.log(item, )
+const CartList = ({ item, updateTotalCost, cartItems }) => {
   const { itemname, iteminstock, itemdescription, itemphoto, itemprice } = item;
   const [counter, setCounter] = useState(1);
   const [cost, setCost] = useState(itemprice);
@@ -25,9 +23,18 @@ const CartList = ({ item, updateTotalCost }) => {
     updateTotalCost(itemprice);
   };
 
-  const handleRemove = () => {
+  const handleRemove = async () => {
     dispatch(removeItem(item));
     updateTotalCost(-cost);
+
+    await fetch(process.env.API_URI + '/api/user/add-array-to-cart', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(cartItems),
+      credentials: 'include',
+    });
   };
 
   return (

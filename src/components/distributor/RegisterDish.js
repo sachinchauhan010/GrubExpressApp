@@ -10,7 +10,7 @@ import { Input } from '@mui/material';
 import { toast } from 'react-toastify';
 
 
-export default function RegisterDish({resId}) {
+export default function RegisterDish({ resId }) {
     const [open, setOpen] = React.useState(false);
     const [itemDetails, setItemDetails] = React.useState({
         itemname: '',
@@ -42,20 +42,19 @@ export default function RegisterDish({resId}) {
             formData.append(key, itemDetails[key]);
         });
         try {
-            const response = await fetch(process.env.API_URI+`/api/distributor/register-restaurant-dish/${resId}`, {
+            const response = await fetch(process.env.API_URI + `/api/distributor/register-restaurant-dish/${resId}`, {
                 method: 'POST',
                 body: formData,
                 credentials: 'include'
             });
             const apiResponse = await response.json();
-            console.log(apiResponse)
             if (!response.ok) {
                 console.log(apiResponse.message);
             }
             if (apiResponse.success) {
                 toast.success("Dish Registered Successfully");
                 handleClose();
-            }else{
+            } else {
                 toast.error(apiResponse.message)
             }
         } catch (error) {
@@ -65,8 +64,8 @@ export default function RegisterDish({resId}) {
 
     return (
         <React.Fragment>
-            <button onClick={handleClickOpen} 
-             className="px-4 py-2 rounded absolute right-28 top-4 z-10 bg-blue-400 text-gray-50 font-semibold hover:bg-fuchsia-200 hover:text-gray-700">
+            <button onClick={handleClickOpen}
+                className="px-4 py-2 rounded absolute right-28 top-4 z-10 bg-blue-400 text-gray-50 font-semibold hover:bg-fuchsia-200 hover:text-gray-700">
                 ADD DISH
             </button>
             <Dialog open={open} onClose={handleClose}>
@@ -99,7 +98,7 @@ export default function RegisterDish({resId}) {
                             variant="standard"
                             value={itemDetails.itemprice}
                             onChange={handleChange}
-                        />        
+                        />
                         <TextField
                             margin="dense"
                             id="itemdescription"

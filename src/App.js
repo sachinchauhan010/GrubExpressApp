@@ -1,26 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import Header from "./components/Header";
-import Body from "./components/Body";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Search from "./components/Search";
-import { Contact } from "./images/SvgIcon";
-import Login from "./components/Login";
-import Cart from "./components/Cart";
-import { Outlet } from "react-router-dom";
-import Error from "./components/Error";
-import Contact from "./components/Contact";
-import RestaurantMenu from "./components/RestaurantMenu";
 import { Provider } from "react-redux";
-import AppStore from "./utils/AppStore";
-import Cart from "./components/Cart";
-import SignUp from "./components/Signup";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import DistributorRegister from "./components/distributor/Signup";
-import DistributorLogin from "./components/distributor/login";
-import Restaurant from "./components/distributor/Restaurant"
+import Body from "./components/Body";
+import { default as Cart, default as Cart } from "./components/Cart";
+import Contact from "./components/Contact";
 import Dish from "./components/distributor/Dish";
+import DistributorLogin from "./components/distributor/login";
+import Restaurant from "./components/distributor/Restaurant";
+import DistributorRegister from "./components/distributor/Signup";
+import Error from "./components/Error";
+import Header from "./components/Header";
+import Login from "./components/Login";
+import RestaurantMenu from "./components/RestaurantMenu";
+import Search from "./components/Search";
+import SignUp from "./components/Signup";
+import AppStore from "./utils/AppStore";
 
 const AppLayout = () => {
   return (

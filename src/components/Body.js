@@ -1,7 +1,6 @@
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { useEffect, useState } from "react";
-import Title from "./Title";
 import { Link } from "react-router-dom";
 import chefImage from '../images/chef.jpeg';
 
@@ -54,7 +53,7 @@ const Body = () => {
         <img src={chefImage} alt="chef Image" className="" />
       </div>
     </div>
-      <Title />
+      {/* <Title /> */}
       <div className="flex flex-wrap justify-center md:mx-8 mx-2 text-wrap my-4 sm:flex-row flex-col">
         {restaurants?.map((restaurant) => (
           <Link to={`/restaurant/${restaurant?.resid}`} key={restaurant?.resid} className="lg:w-1/3 md:w-1/2 sm:w-1/1 xs:w-2/3 xs:m-auto w-[100%] flex flex-wrap flex-row box-border">

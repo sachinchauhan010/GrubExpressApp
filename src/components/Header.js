@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import logo from "../images/Flogo.png";
-import { UserLogo, ContactLogo, HomeLogo, CartLogo, SearchLogo, resLogo } from "../images/SvgIcon";
-import UserTypeDialog from './dialog/userType';
-import { userLogin, userLogout } from "../utils/userLogSlice";
+import { CartLogo, ContactLogo, HomeLogo, SearchLogo, UserLogo, resLogo } from "../images/SvgIcon";
 import { clearCart } from '../utils/CartSlice.js';
+import { userLogin, userLogout } from "../utils/userLogSlice";
+import UserTypeDialog from './dialog/userType';
 
 const Header = () => {
 
@@ -19,16 +19,10 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [cartLength, setCartLength] = useState(0)
 
-
-
   useEffect(() => {
     const getCartLength = async () => {
-      const response = await fetch(process.env.API_URI+'/api/user/get-user-cart', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(),
+      const response = await fetch(process.env.API_URI + '/api/user/get-user-cart', {
+        method: 'GET',
         credentials: 'include',
       });
       const apiResponse = await response.json();
@@ -39,32 +33,32 @@ const Header = () => {
       }
     }
     getCartLength()
-  }, [])   
+  }, [])
 
-  useEffect(()=>{
-   const getUserType=async ()=>{
-    try {
-      const response = await fetch(process.env.API_URI+"/api/distributor/get-user-type-token", {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(),
-        credentials: 'include',
-      });
-      const apiResponse = await response.json();
-      console.log(apiResponse, "TOken")
+  useEffect(() => {
 
-      if(apiResponse.distributorToken){
-        setUserType('distributor')
-      }else if(apiResponse.token){
-        setUserType('user')
+    const getUserType = async () => {
+      try {
+        const response = await fetch(process.env.API_URI + "/api/distributor/get-user-type-token", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(),
+          credentials: 'include',
+        });
+        const apiResponse = await response.json();
+
+        if (apiResponse.distributorToken) {
+          setUserType('distributor')
+        } else if (apiResponse.token) {
+          setUserType('user')
+        }
+      } catch (error) {
+        console.log("Error in Finding Token", error.message)
       }
-    } catch (error) {
-      console.log("Error in Finding Token", error.message)
     }
-   }
-   getUserType()
+    getUserType()
   }, [])
 
   const handleDialogClose = (selectedValue) => {
@@ -85,7 +79,7 @@ const Header = () => {
     setDialogOpen(true);
 
     try {
-      const response = await fetch(process.env.API_URI+`/api/${userType}/auth`, {
+      const response = await fetch(process.env.API_URI + `/api/${userType}/auth`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -97,7 +91,7 @@ const Header = () => {
       if (apiResponse.success) {
         dispatch(userLogout("logout"));
         try {
-          const response = await fetch(process.env.API_URI+`/api/${userType}/logout`, {
+          const response = await fetch(process.env.API_URI + `/api/${userType}/logout`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -183,7 +177,7 @@ const Header = () => {
           )
           }
 
-          <Link to="#" onClick={handleLogAndMenu} className='relative group'>
+          <Link onClick={handleLogAndMenu} className='relative group'>
             <div className="navItem flex gap-x-2 hover:text-blue-900">
               {UserLogo}{userLogStatus}
             </div>
