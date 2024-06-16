@@ -3,7 +3,7 @@ import { removeItem } from "../utils/CartSlice";
 import { useDispatch } from "react-redux";
 
 const CartList = ({ item, updateTotalCost, cartItems }) => {
-  const { itemname, iteminstock, itemdescription, itemphoto, itemprice } = item;
+  const { itemname, iteminstock, itemdescription, itemimage, itemprice } = item;
   const [counter, setCounter] = useState(1);
   const [cost, setCost] = useState(itemprice);
 
@@ -41,7 +41,7 @@ const CartList = ({ item, updateTotalCost, cartItems }) => {
     <section className="mx-4 md:mx-20">
       <div className="md:grid md:grid-cols-4 text-center items-center px-4 my-4 border-orange-50">
         <div className="relative w-full">
-          <img src={itemphoto} className="h-36 w-full rounded-t-md" alt={name} />
+          <img src={itemimage} className="h-36 w-full rounded-t-md" alt={name} />
         </div>
         <div className="flex flex-col items-start text-start px-4">
           <h4 className="text-xl md:text-2xl font-bold">{itemname}</h4>

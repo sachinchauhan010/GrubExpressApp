@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
 import { IMG_URL } from "../utils/Constant";
 
 const RestaurantCard = ({
+  resid,
   resname,
   reslocation,
   resdescription,
@@ -13,7 +15,7 @@ const RestaurantCard = ({
 }) => {
   return (
     <div className="md:h-[380px] md:w-[90%] sm:h-[380px] sm:w-[100%] w-full overflow-hidden p-4 m-6 my-3 rounded-md space-x-2 shadow-xl bg-gray-200">
-      <div className="space-y-4">
+      <Link to={`/restaurant/${resid}`} className="space-y-4">
         <div className="space-y-2">
           <img
             src={resimage}
@@ -39,7 +41,7 @@ const RestaurantCard = ({
             <p>{resdescription}</p>
           </div>
         </div>
-      </div>
+      </Link>
     </div>
   );
 };
