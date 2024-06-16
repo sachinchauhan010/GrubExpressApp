@@ -58,9 +58,13 @@ export default function FormDialog() {
       if (!response.ok) {
         console.log(apiResponse.message);
       }
-
-      toast.success("Restaurant Registered Successfully");
-      handleClose();
+      if(apiResponse.success){
+        toast.success(apiResponse.message);
+        handleClose();
+      }else{
+        toast.error(apiResponse.message)
+      }
+     
     } catch (error) {
       console.error("Error in saving restaurant data:", error.message);
     }

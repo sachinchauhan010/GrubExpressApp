@@ -33,7 +33,7 @@ function Restaurant() {
       }
     };
     fetchRegisteredRes();
-  }, []);
+  }, [registeredRes]);
 
 
   const handleSearch = async (event) => {
