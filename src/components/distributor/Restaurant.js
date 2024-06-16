@@ -33,7 +33,7 @@ function Restaurant() {
       }
     };
     fetchRegisteredRes();
-  }, [registeredRes]);
+  }, []);
 
 
   const handleSearch = async (event) => {
@@ -70,7 +70,7 @@ function Restaurant() {
         {filterdRestaurant ? (
           filterdRestaurant.map((restaurant) => {
             return (
-              <div className='relative m-10'>
+              <div className='relative m-10' key={restaurant?.resid}>
                 <RegisterDish resId={restaurant?.resid} />
                 <RestaurantTicket {...restaurant} />
               </div>
