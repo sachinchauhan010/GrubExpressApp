@@ -1,4 +1,3 @@
-import useData from "../utils/useData";
 import Items from "./Items";
 import Shimmer from "./Shimmer";
 import ItemData from "../utils/ItemsData";
@@ -7,28 +6,28 @@ import RestaurantCard from "./RestaurantCard";
 import { Link } from "react-router-dom";
 
 const Search = () => {
-  const [filteredList, setFilteredList] = useState(null);
-  const [searchText, setSearchText] = useState(null);
-  const cuisinesData = ItemData;
-  const resData = useData();
+  // const [filteredList, setFilteredList] = useState(null);
+  // const [searchText, setSearchText] = useState(null);
+  // const cuisinesData = ItemData;
+  // const resData = useData();
 
-  if (resData === null) {
-    return <Shimmer />;
-  }
+  // if (resData === null) {
+  //   return <Shimmer />;
+  // }
 
-  const resList =
-    resData?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants||resData?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
+  // const resList =
+  //   resData?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants||resData?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
 
-  const handleSearch = () => {
-    const filteredRes = resList.filter((res) => {
-      return res?.info?.name?.toLowerCase().includes(searchText.toLowerCase());
-    });
-    setFilteredList(filteredRes);
-  };
+  // const handleSearch = () => {
+  //   const filteredRes = resList.filter((res) => {
+  //     return res?.info?.name?.toLowerCase().includes(searchText.toLowerCase());
+  //   });
+  //   setFilteredList(filteredRes);
+  // };
 
   return (
     <section className="flex flex-col">
-      <div className="flex justify-center">
+      {/* <div className="flex justify-center">
         <div className="SearchRes h-12 border-2 border-fuchsia-300 rounded-lg w-full md:w-[600px] shadow-md pl-4 flex justify-between items-center bg-slate-50">
           <input
             type="text"
@@ -62,7 +61,7 @@ const Search = () => {
             </Link>
           ))}
         </div>
-      )}
+      )} */}
     </section>
   );
 };

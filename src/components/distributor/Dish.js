@@ -17,7 +17,7 @@ function Dish() {
   useEffect(() => {
     const fetchRegisteredDish = async () => {
       try {
-        const response = await fetch(process.env.API_URI+`/api/distributor/get-restaurant-dish/${resId}`, {
+        const response = await fetch(process.env.API_URI + `/api/distributor/get-restaurant-dish/${resId}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -41,11 +41,9 @@ function Dish() {
   const handleSearch = async (event) => {
     event.preventDefault();
     const filteredItem = dish.filter((dish) => {
-      console.log(dish.itemname)
       return dish?.itemname?.toLowerCase().includes(searchInput.toLowerCase());
     });
     setfilteredDish(filteredItem);
-    console.log(filteredDish, "Filtered Dish")
   }
 
   return (
@@ -69,23 +67,23 @@ function Dish() {
       </div>
 
       {filteredDish ? (
-          filteredDish.map((dish) => {
+        filteredDish.map((dish) => {
+          return (
+            <DishTicket {...dish} key={dish.itemname} />
+          );
+        })
+      ) : (
+        dish.length > 0 ? (
+          dish.map((dish) => {
             return (
               <DishTicket {...dish} key={dish.itemname} />
             );
           })
-        ):(
-          dish.length > 0 ? (
-            dish.map((dish) => {
-              return (
-                <DishTicket {...dish} key={dish.itemname} />
-              );
-            })
-          ) : (
-            <p>No Dish is ADDED.</p>
-          )
+        ) : (
+          <p>No Dish is ADDED.</p>
         )
-        }
+      )
+      }
 
     </div>
   )
