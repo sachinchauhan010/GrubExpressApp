@@ -1,67 +1,84 @@
-import Items from "./Items";
-import Shimmer from "./Shimmer";
-import ItemData from "../utils/ItemsData";
-import { useEffect, useState } from "react";
-import RestaurantCard from "./RestaurantCard";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import Paper from '@mui/material/Paper';
+import InputBase from '@mui/material/InputBase';
+import IconButton from '@mui/material/IconButton';
+import SearchIcon from '@mui/icons-material/Search';
+import RestaurantCard from './RestaurantCard';
 
 const Search = () => {
-  // const [filteredList, setFilteredList] = useState(null);
-  // const [searchText, setSearchText] = useState(null);
-  // const cuisinesData = ItemData;
-  // const resData = useData();
+  const [searchInput, setSearchInput] = useState('');
+  const [restaurants, setRestaurants] = useState([]);
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
 
-  // if (resData === null) {
-  //   return <Shimmer />;
-  // }
+  useEffect(() => {
+    handleSearch();
+  }, []);
 
-  // const resList =
-  //   resData?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants||resData?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
+  async function handleSearch() {
+    try {
+      const response = await fetch(process.env.API_URI + '/api/distributor/get-restaurant', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({}),
+        credentials: 'include',
+      });
+      const data = await response.json();
+      setRestaurants(data.data);
+      setFilteredRestaurants(data.data);
+    } catch (error) {
+      console.error("Error fetching restaurants:", error);
+    }
+  }
 
-  // const handleSearch = () => {
-  //   const filteredRes = resList.filter((res) => {
-  //     return res?.info?.name?.toLowerCase().includes(searchText.toLowerCase());
-  //   });
-  //   setFilteredList(filteredRes);
-  // };
+  useEffect(() => {
+    const searchValue = searchInput.toLowerCase();
+    const filtered = restaurants.filter(restaurant => 
+      Object.values(restaurant).some(value =>
+        String(value).toLowerCase().includes(searchValue)
+      )
+    );
+    setFilteredRestaurants(filtered);
+    console.log(filtered, "filtered");
+  }, [searchInput, restaurants]);
+
+  const handleInputChange = (e) => {
+    setSearchInput(e.target.value);
+  };
 
   return (
     <section className="flex flex-col">
-      {/* <div className="flex justify-center">
-        <div className="SearchRes h-12 border-2 border-fuchsia-300 rounded-lg w-full md:w-[600px] shadow-md pl-4 flex justify-between items-center bg-slate-50">
-          <input
-            type="text"
-            className="searchBox h-full w-[500px] focus:outline-none bg-slate-50"
-            placeholder="item, Food"
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-          />
-          <button
-            className="Search text-gray-500 bg-fuchsia-300 w-[100px] h-full rounded-md shadow-xl font-semibold text-lg"
-            onClick={handleSearch}
-          >
-            Search
-          </button>
-        </div>
+      <Paper
+        component="form"
+        sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
+        onSubmit={(e) => e.preventDefault()}
+        className='center mx-auto my-10'
+      >
+        <InputBase
+          sx={{ ml: 1, flex: 1 }}
+          placeholder="Search Registered Restaurant"
+          inputProps={{ 'aria-label': 'search registered restaurant' }}
+          onChange={handleInputChange}
+        />
+        <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={handleSearch}>
+          <SearchIcon />
+        </IconButton>
+      </Paper>
+      <div>
+        {filteredRestaurants.length > 0 ? (
+          <div className="flex flex-wrap justify-center md:mx-8 mx-2 text-wrap my-4 sm:flex-row flex-col">
+            {filteredRestaurants.map((restaurant) => (
+              <Link to={`/restaurant/${restaurant?.resid}`} key={restaurant?.resid} className="lg:w-1/3 md:w-1/2 sm:w-1/1 xs:w-2/3 xs:m-auto w-[100%] flex flex-wrap flex-row box-border">
+                <RestaurantCard {...restaurant} />
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <p>No restaurants found</p>
+        )}
       </div>
-
-      {!filteredList ? (
-        <div className="itemContainer flex gap-x-4 flex-wrap mt-10 mx-4 md:mx-16 border-2 border-red-900">
-          {cuisinesData?.map((item) => (
-            <div key={item?.id}>
-              <Items {...item} />
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className="flex flex-wrap mx-4 md:mx-8 my-4">
-          {filteredList?.map((restaurant) => (
-            <Link to={"/restaurant/" + restaurant?.info?.id} key={restaurant?.info?.id} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 mb-4">
-              <RestaurantCard {...restaurant.info} />
-            </Link>
-          ))}
-        </div>
-      )} */}
     </section>
   );
 };
