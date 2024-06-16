@@ -35,7 +35,7 @@ function Dish() {
       }
     };
     fetchRegisteredDish();
-  }, [dish]);
+  }, []);
 
 
   const handleSearch = async (event) => {
