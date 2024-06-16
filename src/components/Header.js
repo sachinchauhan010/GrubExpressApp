@@ -88,7 +88,7 @@ const Header = () => {
     setDialogOpen(true);
 
     try {
-      const response = await fetch(process.env.API_URI`/api/${userType}/auth`, {
+      const response = await fetch(process.env.API_URI + `/api/${userType}/auth`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -100,7 +100,7 @@ const Header = () => {
       if (apiResponse.success) {
         dispatch(userLogout("logout"));
         try {
-          const response = await fetch(process.env.API_URI`/api/${userType}/logout`, {
+          const response = await fetch(process.env.API_URI + `/api/${userType}/logout`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
