@@ -17,7 +17,6 @@ export default function FormDialog() {
     resname: '',
     reslocation: '',
     restype: '',
-    rescuisine: '',
     resowner: '',
     resopentime: '',
     resclosetime: '',
@@ -131,17 +130,6 @@ export default function FormDialog() {
               fullWidth
               variant="standard"
               value={resDetails.restype}
-              onChange={handleChange}
-            />
-            <TextField
-              margin="dense"
-              id="rescuisine"
-              name="rescuisine"
-              label="Cuisine"
-              type="text"
-              fullWidth
-              variant="standard"
-              value={resDetails.rescuisine}
               onChange={handleChange}
             />
             <TextField
