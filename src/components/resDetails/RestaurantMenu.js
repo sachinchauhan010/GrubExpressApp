@@ -1,10 +1,10 @@
-import Shimmer from "./Shimmer";
+import Shimmer from "../Shimmer.js";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import RestaurantDetailsCard from "./resDetails/resDetailsCard.js";
-import MenuCard from "./resDetails/MenuCard.js";
+import RestaurantDetailsCard from "./resDetailsCard.js";
+import MenuCard from "./MenuCard.js";
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
