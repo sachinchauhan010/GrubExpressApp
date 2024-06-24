@@ -14,7 +14,7 @@ function RestaurantTicket({ resid, resimage, resname, reslocation, restype, resc
             <Link to={`/distributor/restaurant-dish/${resid}`}>
                 <div className='flex justify-around items-center'>
                     <div className='flex justify-around items-center relative'>
-                        <Card className="w-[1000px] flex-row justify-start space-x-10  bg-blue-100">
+                        <Card className="w-[1000px] flex-row justify-start space-x-10 shadow-xl">
                             <CardHeader
                                 shadow={false}
                                 floated={false}
@@ -23,7 +23,7 @@ function RestaurantTicket({ resid, resimage, resname, reslocation, restype, resc
                                 <img
                                     src={resimage}
                                     alt="Restaurant Image"
-                                    className="h-full w-full object-cover p-2"
+                                    className="h-[300px] w-full object-cover p-2"
                                 />
                             </CardHeader>
                             <CardBody className='p-2'>
@@ -40,16 +40,13 @@ function RestaurantTicket({ resid, resimage, resname, reslocation, restype, resc
                                     {rescuisine.map((cuisine) => (cuisine.itemname))}
                                 </Typography>
                                 <Typography variant="h6" color="blue-gray" className="mb-2">
-                                    {resopentime}
+                                    {resopentime}-{resclosetime}
                                 </Typography>
                                 <Typography variant="h6" color="blue-gray" className="mb-2">
-                                    {resclosetime}
-                                </Typography>
-                                <Typography variant="h6" color="blue-gray" className="mb-2">
-                                    {resowner}
+                                    Owner: {resowner}
                                 </Typography>
                                 <div className='absolute -bottom-1 right-0 flex justify-between space-x-10'>
-                                    <Link to="#" className="inline-block py-2 px-4 bg-blue-400 text-white rounded rounded-b-xl">
+                                    <Link to="#" className="inline-block py-2 px-4 bg-primary text-white rounded rounded-b-xl">
                                         Edit Details
                                     </Link>
                                     <Link to="#" className="inline-block py-2 px-4 bg-red-500 text-white rounded rounded-b-xl">
