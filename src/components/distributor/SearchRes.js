@@ -27,8 +27,6 @@ export default function SearchRestaurant() {
 
       const lowerCaseRestaurant = restaurant.map(name => name.toLowerCase());
       const isRegistered = lowerCaseRestaurant.includes(searchInput.toLowerCase());
-      // if (isRegistered) {
-      // }
     } catch (error) {
       console.log("Error is: ", error.message)
     }

@@ -1,10 +1,9 @@
-import RestaurantCard from "./RestaurantCard";
-import Shimmer from "./Shimmer";
+import RestaurantCard from "../RestaurantCard";
+import Shimmer from "../Shimmer";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import chefImage from '../images/chef.jpeg';
 
-const Body = () => {
+const HeroSection3 = () => {
   const [restaurants, setRestaurants] = useState(null);
 
   const fetchRestaurant = async () => {
@@ -14,7 +13,7 @@ const Body = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(),
+        HeroSection3: JSON.stringify(),
         credentials: 'include',
       });
       const data = await response.json();
@@ -33,27 +32,8 @@ const Body = () => {
   }
 
   return (
-    <section className="bg-blue-50 text-blue-900">
-      <div className="section flex flex-col md:flex-row justify-around items-center h-[100vh] px-10">
-      <div className="">
-        <h1 className="text-5xl font-bold mb-5">
-          It's Not Just Food, <br />
-          It's an <span>Experience</span>
-        </h1>
-
-        <p className="text-lg font-normal mb-5 pr-20 text-blue-900">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsa,
-          provident dolorum. Voluptatum ducimus minima quasi unde, voluptatibus
-          soluta eligendi. Enim, architecto autem.
-        </p>
-
-        <a href="#menu" className="btn">Explore Menu</a>
-      </div>
-      <div className="" >
-        <img src={chefImage} alt="chef Image" className="" />
-      </div>
-    </div>
-      {/* <Title /> */}
+    <section className="text-secondary">
+    <h2 className="text-2xl font-bold mb-6 px-12">Popular Restaurants</h2>
       <div className="flex flex-wrap justify-center md:mx-8 mx-2 text-wrap my-4 sm:flex-row flex-col">
         {restaurants?.map((restaurant) => (
           <Link to={`/restaurant/${restaurant?.resid}`} key={restaurant?.resid} className="lg:w-1/3 md:w-1/2 sm:w-1/1 xs:w-2/3 xs:m-auto w-[100%] flex flex-wrap flex-row box-border">
@@ -66,4 +46,4 @@ const Body = () => {
   );
 };
 
-export default Body;
+export default HeroSection3;

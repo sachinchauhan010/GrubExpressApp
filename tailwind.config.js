@@ -5,9 +5,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors:{
+        primary: '#fc8a06',
+        secondary:'#03081F'
+      },
       screens: {
-        'xs': '400px', // Custom breakpoint for extra small screens
-        // You can define additional breakpoints as needed
+        xs: '400px', 
       },
     },
   },
