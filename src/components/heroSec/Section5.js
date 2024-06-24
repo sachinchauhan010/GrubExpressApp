@@ -1,5 +1,5 @@
 import React from 'react'
-import Partner from '../../assets/images/partner.png'
+import Partner from '../../assets/images/Partner.png'
 import Rider from '../../assets/images/Ride.png'
 import User from '../../assets/images/User.png'
 import { Link } from 'react-router-dom'
