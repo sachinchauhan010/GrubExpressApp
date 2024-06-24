@@ -1,7 +1,7 @@
 import React from 'react'
 import Heroimg2 from '../../assets/images/Heroimg2.png'
 import Heroimg1 from '../../assets/images/Heroimg1.png'
-import bgimg from '../../assets/images/image 1.png'
+import bgimg from '../../assets/images/image1.png'
 import Search from '../Search'
 
 function HeroSection1() {
