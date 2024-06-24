@@ -1,6 +1,6 @@
 import React from 'react'
 import RestaurantDetailsCard from '../components/resDetails/resDetailsCard'
-import RestaurantMenu from '../components/RestaurantMenu'
+import RestaurantMenu from '../components/resDetails/RestaurantMenu'
 import Reviews from '../components/resDetails/Review'
 
 function RestaurantDetails() {

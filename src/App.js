@@ -14,7 +14,6 @@ import DistributorRegister from "./components/distributor/Signup";
 import Error from "./components/Error";
 import Login from "./components/Login";
 import Header from "./pages/Header";
-import RestaurantMenu from "./components/RestaurantMenu";
 import Search from "./components/Search";
 import SignUp from "./components/Signup";
 import AppStore from "./utils/AppStore";
