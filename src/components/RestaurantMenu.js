@@ -1,15 +1,36 @@
 import Shimmer from "./Shimmer";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { toast } from 'react-toastify'
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addItem } from "../utils/CartSlice.js";
+import RestaurantDetailsCard from "./resDetails/resDetailsCard.js";
+import MenuCard from "./resDetails/MenuCard.js";
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
 const RestaurantMenu = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+
   const { resId } = useParams();
   const [restaurantDishes, setRestaurantDishes] = useState([]);
+  const [restaurantInfo, setRestaurantInfo] = useState(null);
+  const [searchInput, setSearchInput] = useState('');
+  const [filteredMenu, setFilteredMenu] = useState([]);
+
+  const handleSearchMenu = () => {
+    if (searchInput) {
+      const lowerCaseSearchInput = searchInput.toLowerCase();
+      const lowerCaseRescuisine = restaurantDishes.map(item => ({
+        ...item,
+        itemname: item.itemname.toLowerCase()
+      }));
+      const filtered = lowerCaseRescuisine.filter(item => 
+        item.itemname.includes(lowerCaseSearchInput)
+      );
+      setFilteredMenu(filtered);
+    } else {
+      setFilteredMenu(restaurantDishes);
+    }
+  };
 
   useEffect(() => {
     const fetchRestaurantDishes = async () => {
@@ -23,8 +44,9 @@ const RestaurantMenu = () => {
           credentials: 'include',
         });
         const data = await response.json();
+        setRestaurantInfo(data?.dish);
         setRestaurantDishes(data.dish.rescuisine);
-        console.log(restaurantDishes, "&&&&")
+        setFilteredMenu(data.dish.rescuisine); // Initialize filteredMenu with all dishes
       } catch (error) {
         console.error("Error fetching restaurant dishes:", error);
       }
@@ -32,67 +54,49 @@ const RestaurantMenu = () => {
     fetchRestaurantDishes();
   }, [resId]);
 
-  const handleCartItem = async (item) => {
-    const response = await fetch(process.env.API_URI + '/api/user/auth', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(),
-      credentials: 'include',
-    });
-
-    const apiRespose = await response.json();
-    if (apiRespose.success) {
-      dispatch(addItem(item));
-      const response = await fetch(process.env.API_URI + '/api/user/add-to-cart', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(item),
-        credentials: 'include',
-      });
-      const apiRespose = await response.json();
-      if (apiRespose.success) {
-        toast.success(apiRespose.message);
-      }
-
-    } else {
-      toast.error('You are not logged in');
-      navigate('/user/login');
-    }
-  };
 
   if (restaurantDishes === null) {
     return <Shimmer />;
   }
+  
   return (
-    <section className="bg-blue-50">
-      {restaurantDishes.map((dish) => (
-        <div className="flex justify-around mb-10 border-b-2 py-10">
-          <div>
-            <p className="text-xl font-bold md:text-2xl text-blue-700 ">{dish?.itemname}</p>
-            <p className="text-md font-semibold text-fuchsia-700 m-y-1">
-              {dish?.itemdescription}
-            </p>
-            <p className="text-md font-semibold text-fuchsia-700 m-y-1">
-              {dish?.itemprice}
-            </p>
-            <p className="text-md font-semibold text-fuchsia-700 m-y-1">
-              In Stock: {dish?.iteminstock}
-            </p>
-          </div>
-          <div className="relative w-1/5">
-            <img
-              src={dish?.itemimage}
-              alt="dish Image"
-              className="max-h-36 w-full rounded-lg"
+    <section className="">
+      {console.log(restaurantInfo, "resInfo")}
+      <RestaurantDetailsCard {...restaurantInfo} />
+
+      <div className='w-[80%] mx-auto p-4 rounded-lg flex flex-col lg:flex-row  py-10 relative justify-between'>
+        <p className='lg:text-3xl text-xl text-secondary font-bold'>All Offers from <span>{restaurantInfo?.resname}</span></p>
+        <div className='flex justify-start items-center'>
+          <Box
+            component="form"
+            sx={{
+              '& > :not(style)': { m: 0, width: '25ch', borderRadius: '20px' },
+            }}
+            noValidate
+            autoComplete="off"
+          >
+            <TextField 
+              id="standard-basic" 
+              label="Search from Menu" 
+              variant="standard" 
+              onChange={(e) => setSearchInput(e.target.value)} 
+              onKeyPress={(e) => { if (e.key === 'Enter') handleSearchMenu(); }}
             />
-            <button className="absolute bottom-1 left-0 bg-gray-400 w-full hover:text-white hover:bg-green-300 font-semibold" onClick={() => handleCartItem(dish)}>ADD TO CART</button>
-          </div>
+          </Box>
+          <button 
+            className='bg-primary rounded-md px-4 py-2 text-white font-semibold' 
+            onClick={handleSearchMenu}
+          >
+            Search
+          </button>
         </div>
-      ))}
+      </div>
+
+      <div className="flex flex-wrap justify-between">
+        {filteredMenu.map((dish) => (
+          <MenuCard dish={dish} key={dish.itemname} />
+        ))}
+      </div>
     </section>
   );
 };

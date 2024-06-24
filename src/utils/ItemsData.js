@@ -1,54 +1,39 @@
-const ItemData = [
+import Breakfast from '../assets/images/Breakfast.png';
+import BurgerFast from '../assets/images/BurggerFast.png';
+import Pasta from '../assets/images/Pasata.png';
+import Pizza from '../assets/images/Pizza.png';
+import Salad from '../assets/images/Salad.png';
+import Soup from '../assets/images/Soop.png';
+
+export const ItemData = [
   {
-    id: "762797",
-    imageId: "v1674029845/PC_Creative%20refresh/3D_bau/banners_new/Burger.png",
-    text: "Burgers",
+    id: "01",
+    name: "Break Fast",
+    image: Breakfast
   },
   {
-    id: "1280614",
-    imageId: "v1674029856/PC_Creative%20refresh/3D_bau/banners_new/Pizza.png",
-    text: "pizzas",
+    id: "02",
+    name: "Burger & Fast Food",
+    image: BurgerFast
   },
   {
-    id: "750592",
-    imageId: "v1675667625/PC_Creative%20refresh/Biryani_2.png",
-    text: "Biryani",
+    id: "03",
+    name: "Salads",
+    image: Salad
   },
   {
-    id: "749874",
-    imageId: "v1674029845/PC_Creative%20refresh/3D_bau/banners_new/Cakes.png",
-    text: "Cakes",
+    id: "04",
+    name: "Pasta & Casuals",
+    image: Pasta
   },
   {
-    id: "749769",
-    imageId: "v1674029852/PC_Creative%20refresh/3D_bau/banners_new/Momos.png",
-    text: "Momos",
+    id: "05",
+    name: "Pizza",
+    image: Pizza
   },
   {
-    id: "750223",
-    imageId: "v1674029858/PC_Creative%20refresh/3D_bau/banners_new/Rolls.png",
-    text: "Rolls",
-  },
-  {
-    id: "750132",
-    imageId: "v1674029850/PC_Creative%20refresh/3D_bau/banners_new/Dosa.png",
-    text: "Dosa",
-  },
-  {
-    id: "750235",
-    imageId:
-      "v1674029860/PC_Creative%20refresh/3D_bau/banners_new/Sandwich.png",
-    text: "Sandwich",
-  },
-  {
-    id: "750640",
-    imageId: "v1674029847/PC_Creative%20refresh/3D_bau/banners_new/Kachori.png",
-    text: "Kachori",
-  },
-  {
-    id: "750253",
-    imageId: "rng/md/carousel/production/cbb85a3c1684891105294d11f8359996",
-    text: "Tea",
+    id: "06",
+    name: "Soups",
+    image: Soup
   },
 ];
-export default ItemData;

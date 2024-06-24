@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux"
-import CartList from "./CartList"
-import { addItem, clearCart } from "../utils/CartSlice"
+import CartList from "../components/cartSec/CartList"
+// import { addItem, clearCart } from "../../utils/CartSlice"
 import { useState, useEffect } from "react"
-
+import { addItem, clearCart } from "../utils/CartSlice"
 const Cart = () => {
   const [totalCost, setTotalCost] = useState(0)
   const [, setCartItem] = useState([])

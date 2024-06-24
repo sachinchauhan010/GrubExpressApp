@@ -4,29 +4,32 @@ import { Provider } from "react-redux";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Body from "./components/Body";
-import { default as Cart, default as Cart } from "./components/Cart";
+import Hero from "./pages/Hero";
+import { default as Cart, default as Cart } from "./pages/Cart";
 import Contact from "./components/Contact";
 import Dish from "./components/distributor/Dish";
 import DistributorLogin from "./components/distributor/login";
 import Restaurant from "./components/distributor/Restaurant";
 import DistributorRegister from "./components/distributor/Signup";
 import Error from "./components/Error";
-import Header from "./components/Header";
 import Login from "./components/Login";
+import Header from "./pages/Header";
 import RestaurantMenu from "./components/RestaurantMenu";
 import Search from "./components/Search";
 import SignUp from "./components/Signup";
 import AppStore from "./utils/AppStore";
+import Footer from "./components/footer";
+import RestaurantDetails from "./pages/RestaurantDetails";
 
 const AppLayout = () => {
   return (
     <Provider store={AppStore}>
       <section>
-          <ToastContainer
-           style={{ marginTop: '50px' }}  />
-          <Header />
-          <Outlet />
+        <ToastContainer
+          style={{ marginTop: '50px' }} />
+        <Header />
+        <Outlet />
+        <Footer />
       </section>
     </Provider>
   );
@@ -39,7 +42,7 @@ const appRouter = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Body />,
+        element: <Hero />,
       },
       {
         path: "/search",
@@ -71,7 +74,7 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/restaurant/:resId",
-        element: <RestaurantMenu />,
+        element: <RestaurantDetails />,
       },
       {
         path: "/cart",
@@ -79,11 +82,11 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/distributor/restaurant",
-        element: <Restaurant/>
+        element: <Restaurant />
       },
       {
         path: "/distributor/restaurant-dish/:resId",
-        element: <Dish/>
+        element: <Dish />
       },
     ],
     errorElement: <Error />,
