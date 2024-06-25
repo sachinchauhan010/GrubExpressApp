@@ -128,7 +128,8 @@ const Header = () => {
       <div className="headerContainer flex justify-between items-center mx-10 mt-4 ">
         <div className="logoContainer">
           <div className="logo">
-            <img src={logo} alt="" className="h-[70px] -mt-4" />
+            {/* <img src={logo} alt="" className="h-[70px] -mt-4" /> */}
+            <p className='text-secondary text-2xl font-bold'>GRUB<span className='text-primary'>EXPRESS</span></p>
           </div>
         </div>
         <div className="menuIcon cursor-pointer md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -162,7 +163,7 @@ const Header = () => {
           {(userType == 'distributor') ? (
             <Link to='/distributor/restaurant' className='relative group'>
               <div className="navItem flex gap-x-2 hover:text-primary relative">
-                <span className=''>{resLogo}</span> Restaurant
+                <span>{resLogo}</span> Restaurant
               </div>
               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-bottom-right group-hover:origin-bottom-left"></span>
             </Link>
