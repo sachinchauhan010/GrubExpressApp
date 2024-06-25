@@ -54,7 +54,7 @@ const Footer = () => {
       <div className="bg-gray-900 text-gray-400 text-center py-4 mt-8">
         <div className="max-w-6xl mx-auto px-4 lg:px-0 flex flex-col lg:flex-row justify-between items-center">
           <p className="text-sm">
-            Order.UK Copyright 2024, All Rights Reserved.
+            GRUBEXPRESS Copyright 2024, All Rights Reserved.
           </p>
           <ul className="flex space-x-4 mt-2 lg:mt-0">
             <li><Link href="#!" className="text-gray-400">Privacy Policy</Link></li>
