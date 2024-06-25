@@ -92,7 +92,7 @@ const RestaurantMenu = () => {
         </div>
       </div>
 
-      <div className="flex flex-wrap justify-between">
+      <div className="flex flex-wrap justify-between p-5">
         {filteredMenu.map((dish) => (
           <MenuCard dish={dish} key={dish.itemname} />
         ))}

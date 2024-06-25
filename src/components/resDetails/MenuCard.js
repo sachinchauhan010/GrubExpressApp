@@ -45,7 +45,7 @@ const MenuCard = ({dish}) => {
 
 
   return (
-      <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl my-5">
+      <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-[650px] my-5">
         <div className="md:flex">
           <div className="md:flex-shrink-0">
             <img className="h-48 w-full object-cover md:h-full md:w-48" src={itemimage} alt="Product" />
@@ -55,11 +55,6 @@ const MenuCard = ({dish}) => {
             <p className="mt-2 text-gray-500">
               {itemdescription}
             </p>
-            <ul className="mt-4">
-              <li className="text-gray-700">Made with full cotton</li>
-              <li className="text-gray-700">Slim fit for any body</li>
-              <li className="text-gray-700">Quality control by JC</li>
-            </ul>
 
             <div className="mt-4 text-xl font-bold text-gray-900">₹{itemprice} per plate</div>
             <div className="mt-4 flex">
