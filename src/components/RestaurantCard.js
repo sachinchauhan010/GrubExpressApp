@@ -28,7 +28,7 @@ const RestaurantCard = ({
           <div className="font-medium text-sm">
             <h4 className="overflow-hidden">
               {rescuisine.map((item, index) => (
-                <span key={index}>{item.itemname}</span>
+                <span key={index}>{item.itemname} </span>
               ))}
             </h4>
             <h4>

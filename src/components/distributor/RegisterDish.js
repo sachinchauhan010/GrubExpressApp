@@ -65,7 +65,7 @@ export default function RegisterDish({ resId }) {
     return (
         <React.Fragment>
             <button onClick={handleClickOpen}
-                className="px-4 py-2 rounded absolute right-28 top-4 z-10 bg-blue-400 text-gray-50 font-semibold hover:bg-fuchsia-200 hover:text-gray-700">
+                className="px-4 py-2 rounded absolute right-28 top-4 z-10 bg-primary text-gray-50 font-semibold hover:bg-fuchsia-200 hover:text-gray-700">
                 ADD DISH
             </button>
             <Dialog open={open} onClose={handleClose}>

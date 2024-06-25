@@ -10,8 +10,8 @@ import { Link } from 'react-router-dom';
 
 function DishTicket({itemimage, itemname, itemprice, itemdescription}) {
   return (
-    <div className='flex justify-around items-center mt-20 relative'>
-      <Card className="w-full max-w-[58rem] flex-row justify-start space-x-10 h-[270px] bg-blue-100">
+    <div className='flex justify-around items-center my-10 relative '>
+      <Card className="w-full max-w-[58rem] flex-row justify-start space-x-10 h-[270px] shadow-lg">
               <CardHeader
                 shadow={false}
                 floated={false}
@@ -28,7 +28,7 @@ function DishTicket({itemimage, itemname, itemprice, itemdescription}) {
                   {itemname}
                 </Typography>
                 <Typography variant="h4" color="blue-gray" className="mb-2">
-                  {itemprice}
+                ₹{itemprice} per plate
                 </Typography>
                 <Typography color="gray" className="mb-8 font-normal">
                   {itemdescription}

@@ -37,6 +37,7 @@ function RestaurantTicket({ resid, resimage, resname, reslocation, restype, resc
                                     {restype}
                                 </Typography>
                                 <Typography variant="h6" color="blue-gray" className="mb-2">
+                                    {console.log(rescuisine, "###res")}
                                     {rescuisine.map((cuisine) => (cuisine.itemname))}
                                 </Typography>
                                 <Typography variant="h6" color="blue-gray" className="mb-2">

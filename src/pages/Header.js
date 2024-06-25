@@ -127,10 +127,10 @@ const Header = () => {
     <section className="rounded-b-xl bg-transparent">
       <div className="headerContainer flex justify-between items-center mx-10 mt-4 ">
         <div className="logoContainer">
-          <div className="logo">
+          <Link to={'/'} className="logo cursor-pointer">
             {/* <img src={logo} alt="" className="h-[70px] -mt-4" /> */}
             <p className='text-secondary text-2xl font-bold'>GRUB<span className='text-primary'>EXPRESS</span></p>
-          </div>
+          </Link>
         </div>
         <div className="menuIcon cursor-pointer md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
           <svg className="w-6 h-6" viewBox="0 0 24 24" stroke="currentColor" fill="none" xmlns="http://www.w3.org/2000/svg">
