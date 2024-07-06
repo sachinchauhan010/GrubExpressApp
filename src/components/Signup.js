@@ -14,10 +14,13 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { userLogout } from '../utils/userLogSlice.js';
 const defaultTheme = createTheme();
 
 export default function SignUp() {
   const navigate=useNavigate();
+  const dispatch= useDispatch();
   const [userData, setUserData] = React.useState({
     name: '',
     phoneno: '',
@@ -44,12 +47,34 @@ export default function SignUp() {
         body: JSON.stringify(userData),
       });
       const apiresponse = await response.json();
-      console.log(apiresponse, "%%%%%%")
       if (!response.ok) {
         toast.error(apiresponse.message)
         throw new Error('Network response was not ok');
       }
       toast.success(apiresponse.message);
+      
+      try {
+        const response = await fetch(process.env.API_URI+'/api/user/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(userData),
+          credentials: 'include',
+        });
+        const apiresponse = await response.json();
+        if (!response.ok) {
+          toast.error(apiresponse.message);
+          throw new Error('Network response was not ok');
+  
+        }
+        dispatch(userLogout('logout'));
+        navigate('/cart');
+  
+      } catch (error) {
+        console.log(error.message);
+      }
+
       setUserData({
         name:'',
         phoneno:'',
