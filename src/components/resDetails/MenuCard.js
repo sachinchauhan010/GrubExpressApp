@@ -5,6 +5,7 @@ import { addItem } from '../../utils/CartSlice';
 import { toast } from 'react-toastify'
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import Order from '../../pages/Order';
 
 const MenuCard = ({dish}) => {
   const { itemname, itemimage, itemprice, itemdescription }=dish
@@ -24,6 +25,7 @@ const MenuCard = ({dish}) => {
 
     const apiRespose = await response.json();
     if (apiRespose.success) {
+      console.log(item, "item%%%")
       dispatch(addItem(item));
       const response = await fetch(process.env.API_URI + '/api/user/add-to-cart', {
         method: 'POST',
@@ -58,8 +60,9 @@ const MenuCard = ({dish}) => {
 
             <div className="mt-4 text-xl font-bold text-gray-900">₹{itemprice} per plate</div>
             <div className="mt-4 flex">
-              <button className="bg-primary text-white px-4 py-2 rounded mr-2">Order Now</button>
-              <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:text-white hover:bg-primary" onClick={() => handleCartItem(dish)}>Add to Cart</button>
+              {/* <button className="bg-primary text-white px-4 py-2 rounded mr-2">Order Now</button> */}
+              <Order dish={dish}/>
+              <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:text-white hover:bg-primary text-base" onClick={() => handleCartItem(dish)}>ADD TO CART</button>
             </div>
           </div>
         </div>

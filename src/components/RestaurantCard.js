@@ -12,7 +12,7 @@ const RestaurantCard = ({
   resimage,
 }) => {
   return (
-    <div className="md:h-[380px] md:w-[300px] sm:h-[380px] sm:w-[100%] w-full overflow-hidden m-6 my-3 rounded-md space-x-2 border-[1px] border-gray-300">
+    <div className="md:h-[400px] md:w-[320px] sm:h-[380px] sm:w-[100%] w-full overflow-hidden m-6 my-3 rounded-md space-x-2 border-[1px] border-gray-300">
       <Link to={`/restaurant/${resid}`} className="space-y-4">
         <div className="space-y-2">
           <img
