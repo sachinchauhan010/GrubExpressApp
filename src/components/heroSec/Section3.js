@@ -23,9 +23,7 @@ const HeroSection3 = () => {
     }
   };
 
-  useEffect(() => {
-    fetchRestaurant();
-  }, []);
+  fetchRestaurant()
 
   if (restaurants === null) {
     return <Shimmer />;
