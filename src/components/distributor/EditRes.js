@@ -181,7 +181,6 @@ export default function EditRes({ preresvdetails }) {
                             value={newresDetails.newresdescription}
                             onChange={handleChange}
                         />
-                        //TODO: make image also changable during edit reaturant
                         {/* <Input
                             margin="dense"
                             id="newresimage"
