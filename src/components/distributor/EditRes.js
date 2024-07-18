@@ -181,14 +181,15 @@ export default function EditRes({ preresvdetails }) {
                             value={newresDetails.newresdescription}
                             onChange={handleChange}
                         />
-                        <Input
+                        //TODO: make image also changable during edit reaturant
+                        {/* <Input
                             margin="dense"
                             id="newresimage"
                             name="newresimage"
                             type="file"
                             fullWidth
                             onChange={handleChange}
-                        />
+                        /> */}
                         <DialogActions>
                             <Button onClick={handleClose}>Cancel</Button>
                             <Button type="submit" onClick={handleSubmit}>Submit Details</Button>
