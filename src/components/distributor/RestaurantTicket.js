@@ -6,11 +6,12 @@ import {
     Typography,
 } from "@material-tailwind/react";
 import { Link } from 'react-router-dom';
+import EditRes from './EditRes';
 
-
-function RestaurantTicket({ resid, resimage, resname, reslocation, restype, rescuisine, resopentime, resclosetime, resowner }) {
+function RestaurantTicket({ restaurant }) {
+    const { resid, resimage, resname, reslocation, restype, rescuisine, resopentime, resclosetime, resowner } = restaurant
     return (
-        <div>
+        <div className='relative'>
             <Link to={`/distributor/restaurant-dish/${resid}`}>
                 <div className='flex justify-around items-center'>
                     <div className='flex justify-around items-center relative'>
@@ -46,19 +47,21 @@ function RestaurantTicket({ resid, resimage, resname, reslocation, restype, resc
                                 <Typography variant="h6" color="blue-gray" className="mb-2">
                                     Owner: {resowner}
                                 </Typography>
-                                <div className='absolute -bottom-1 right-0 flex justify-between space-x-10'>
-                                    <Link to="#" className="inline-block py-2 px-4 bg-primary text-white rounded rounded-b-xl">
-                                        Edit Details
-                                    </Link>
-                                    <Link to="#" className="inline-block py-2 px-4 bg-red-500 text-white rounded rounded-b-xl">
-                                        Remove Restaurant
-                                    </Link>
-                                </div>
+
                             </CardBody>
                         </Card>
                     </div>
                 </div>
             </Link>
+
+            <div className='absolute -bottom-1 right-40 flex justify-between space-x-10'>
+                <Link to={''}>
+                    <EditRes className="inline-block py-2 px-4 bg-primary text-white rounded rounded-b-xl" preresvdetails={restaurant} />
+                </Link>
+                <Link to="#" className="inline-block py-2 px-4 bg-red-500 text-white rounded rounded-b-xl">
+                    Remove Restaurant
+                </Link>
+            </div>
         </div>
     )
 }

@@ -72,7 +72,7 @@ function Restaurant() {
             return (
               <div className='relative m-10' key={restaurant?.resid}>
                 <RegisterDish resId={restaurant?.resid} />
-                <RestaurantTicket {...restaurant} />
+                <RestaurantTicket restaurant={restaurant} />
               </div>
             );
           })
@@ -82,7 +82,7 @@ function Restaurant() {
               return (
                 <div className='relative m-10'>
                   <RegisterDish resId={restaurant?.resid} />
-                  <RestaurantTicket {...restaurant} />
+                  <RestaurantTicket restaurant={restaurant} />
                 </div>
               );
             })

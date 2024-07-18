@@ -19,6 +19,7 @@ import SignUp from "./components/Signup";
 import AppStore from "./utils/AppStore";
 import Footer from "./components/footer";
 import RestaurantDetails from "./pages/RestaurantDetails";
+import EditRes from "./components/distributor/EditRes";
 
 const AppLayout = () => {
   return (
