@@ -10,7 +10,7 @@ const Cart = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const newTotalCost = cartItems.reduce((total, item) => total + item.price, 0);
+    const newTotalCost = cartItems?.reduce((total, item) => total + item.itemprice, 0);
     setTotalCost(newTotalCost);
   }, [cartItems]);
 
