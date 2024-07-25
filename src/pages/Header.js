@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import logo from "../images/Flogo.png";
+
 import { CartLogo, ContactLogo, HomeLogo, SearchLogo, UserLogo, resLogo } from "../images/SvgIcon.js";
 import { clearCart } from '../utils/CartSlice.js';
 import { userLogin, userLogout } from "../utils/userLogSlice.js";
@@ -33,7 +33,7 @@ const Header = () => {
       }
     }
     getCartLength()
-  }, [])
+  }, [cartItems])
 
   useEffect(() => {
 
