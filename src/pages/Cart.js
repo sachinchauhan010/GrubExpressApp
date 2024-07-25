@@ -1,20 +1,19 @@
-import { useDispatch, useSelector } from "react-redux";
-import CartList from "../components/cartSec/CartList";
 import { useState, useEffect } from "react";
-import { addItem, clearCart } from "../utils/CartSlice";
+import { useDispatch } from "react-redux";
+
+import CartList from "../components/cartSec/CartList";
+import { clearCart } from "../utils/CartSlice";
 
 const Cart = () => {
   const [totalCost, setTotalCost] = useState(0);
-  const [, setCartItem] = useState([]);
-  
-  const cartItems = useSelector((store) => store.cart.items);
+  const [cartItems, setCartItems] = useState([])
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
-    const newTotalCost = cartItems.reduce((total, item) => total + item.price, 0);
+    const newTotalCost = cartItems?.reduce((total, item) => total + item.itemprice, 0);
     setTotalCost(newTotalCost);
   }, [cartItems]);
-  
+
   useEffect(() => {
     const fetchItem = async () => {
       try {
@@ -22,21 +21,18 @@ const Cart = () => {
           method: 'GET',
           credentials: 'include',
         });
-        
+
         const apiResponse = await response.json();
         const cartDetails = apiResponse.userCart || [];
-        
-        setCartItem(cartDetails);
-        cartDetails.forEach(item => {
-          dispatch(addItem(item));
-        });
+
+        setCartItems(cartDetails);
       } catch (error) {
         console.error("Error fetching cart items:", error);
       }
     };
     fetchItem();
   }, [dispatch]);
-  
+
   const handleClearCart = async () => {
     dispatch(clearCart());
     await fetch(`${process.env.API_URI}/api/user/add-array-to-cart`, {
@@ -48,11 +44,11 @@ const Cart = () => {
       credentials: 'include',
     });
   };
-  
+
   const updateTotalCost = (priceChange) => {
     setTotalCost((prevTotal) => prevTotal + priceChange);
   };
-  
+
   return (
     <section>
       <h2 className="text-2xl md:text-4xl font-bold text-gray-600 text-center pt-6">

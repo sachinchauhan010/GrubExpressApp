@@ -69,7 +69,7 @@ const CartList = ({ item, updateTotalCost, cartItems }) => {
           />
           
           <MdDelete
-            onClick={handleRemove} className="text-red-500 text-3xl mx-10"
+            onClick={handleRemove} className="text-red-500 text-3xl mx-10 cursor-pointer"
           />
         </div>
       </div>
