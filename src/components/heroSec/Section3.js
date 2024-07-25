@@ -23,8 +23,10 @@ const HeroSection3 = () => {
       console.error("Error fetching restaurants:", error);
     }
   };
-  fetchRestaurant();
-
+  useEffect(()=>{
+    fetchRestaurant();
+  },[])
+  
   if (restaurants === null) {
     return <Shimmer />;
   }
