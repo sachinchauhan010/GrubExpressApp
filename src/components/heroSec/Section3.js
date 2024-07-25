@@ -7,6 +7,7 @@ const HeroSection3 = () => {
   const [restaurants, setRestaurants] = useState(null);
 
   const fetchRestaurant = async () => {
+    console.log("Called")
     try {
       const response = await fetch(process.env.API_URI + '/api/distributor/get-restaurant', {
         method: 'POST',
@@ -22,10 +23,7 @@ const HeroSection3 = () => {
       console.error("Error fetching restaurants:", error);
     }
   };
-
-  useEffect(() => {
-    fetchRestaurant()
-  }, [])
+  fetchRestaurant();
 
   if (restaurants === null) {
     return <Shimmer />;
