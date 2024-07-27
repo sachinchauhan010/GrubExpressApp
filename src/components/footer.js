@@ -5,7 +5,7 @@ const Footer = () => {
     <footer className="bg-gray-100 pt-8 pb-4">
       <div className="max-w-6xl mx-auto px-4 lg:px-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         <div className="flex flex-col items-center lg:items-start">
-          <h2 className="text-3xl font-bold text-black mb-4">GRUB EXPRESS</h2>
+          <h2 className="text-3xl font-bold text-black mb-4">GRUB <span className='text-orange-500'>EXPRESS</span></h2>
           <p className="text-gray-600 text-center lg:text-left">
             Company # 408903-445, Registered with House of companies.
           </p>
@@ -54,7 +54,7 @@ const Footer = () => {
       <div className="bg-gray-900 text-gray-400 text-center py-4 mt-8">
         <div className="max-w-6xl mx-auto px-4 lg:px-0 flex flex-col lg:flex-row justify-between items-center">
           <p className="text-sm">
-            GRUBEXPRESS Copyright 2024, All Rights Reserved.
+            GRUB<span className='bg-orange-500'>EXPRESS</span> Copyright 2024, All Rights Reserved.
           </p>
           <ul className="flex space-x-4 mt-2 lg:mt-0">
             <li><Link href="#!" className="text-gray-400">Privacy Policy</Link></li>
