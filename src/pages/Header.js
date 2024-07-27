@@ -49,10 +49,10 @@ const Header = () => {
         });
         const apiResponse = await response.json();
 
-        if (apiResponse.distributorToken) {
-          setUserType('distributor')
-        } else if (apiResponse.token) {
+        if (apiResponse.token) {
           setUserType('user')
+        } else if (apiResponse.distributorToken) {
+          setUserType('distributor')
         }
       } catch (error) {
         console.log("Error in Finding Token", error.message)
